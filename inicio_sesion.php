@@ -105,12 +105,12 @@
                         <h3 class="login-heading mb-4 text-sm-center">INICIO DE SESION</h3>
                       <form action="home.html">
                           <div class="form-label-group py-3 ">
-                            <input type="email" id="inputEmail" class="form-control" placeholder="Correo Electronico">
-                           
+                            <input type="email" name = "email" id="inputEmail" class="form-control" placeholder="Correo Electronico">
+                            
                           </div>
           
                           <div class="form-label-group py-3 mb-3">
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" >
+                            <input type="password" id="inputPassword" name = "password" class="form-control" placeholder="Contraseña" >
                             
                           </div>
                           

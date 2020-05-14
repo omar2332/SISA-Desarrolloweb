@@ -1,5 +1,9 @@
 <?php include('cabecera_usuario.php'); ?>
 
+  
+
+
+
   <header class="bg-primary text-white">
     <div class="container text-center">
       <div class="row">
@@ -16,6 +20,7 @@
       
     
     </div>
+
   </header>
 
   <section id="about">
@@ -44,7 +49,7 @@
       </div>
     </div>
   </section>
-
+  
   <section id="contact">
     <div class="container">
       <div class="row">
@@ -63,6 +68,7 @@
         </div>
       </div>
     </div>
+
   </section>
 
   <!-- Footer -->
@@ -70,6 +76,9 @@
     <div class="container">
       <p class="m-0 text-center text-white">Copyright</p>
     </div>
+    
+   
+
     <!-- /.container -->
   </footer>
 

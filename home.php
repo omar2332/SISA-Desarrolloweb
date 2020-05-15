@@ -20,16 +20,23 @@
 			<div class="full-box dashboard-sideBar-UserInfo">
 				<figure class="full-box">
 					<img src="./assets/img/avatar.jpg" alt="UserIcon">
-					<figcaption class="text-center text-titles">Usuario</figcaption>
+					<figcaption class="text-center text-titles"> <?php 
+						session_start();  
+						if(isset($_SESSION["nombre"])){
+						echo $_SESSION["nombre"];
+						}
+						
+						?>
+				</figcaption>
 				</figure>
 				<ul class="full-box list-unstyled text-center">
 					<li>
-						<a href="#!">
+						<a>
 							<i class="zmdi zmdi-settings"></i>
 						</a>
 					</li>
 					<li>
-						<a href="#!" class="btn-exit-system">
+						<a href = "cerrar_sesion.php">
 							<i class="zmdi zmdi-power"></i>
 						</a>
 					</li>

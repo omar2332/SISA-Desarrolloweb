@@ -43,7 +43,7 @@
 <body id="page-top">
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav"> 
     <div class="container">
       <a class="navbar-brand js-scroll-trigger " href="index.php" style="font-family:Ar Destine;"> <span class="mb-0 h2 ">CE.SISA</span></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,17 +77,28 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger tamaño_nav" href="contacto.php">Contacto</a>
           </li>
-          <li class="nav-item"> 
-            <a href="inicio_sesion.php" class="button">
-              <button type="button" class="btn btn-outline-primary btn-md tamaño_nav">Iniciar Sesion</button>
-            </a>
-          </li>
 
-          <li class="nav-item"> 
-            <a href="registrar.php" class="button">
-              <button type="button" class="btn btn-secondary btn-md tamaño_nav">Registrarse</button>
-            </a>
-          </li>
+          <?php
+                session_start();  
+                if(isset($_SESSION["id_usuario"])){
+                  echo '<li class="nav-item"> <a class="btn btn-outline-danger btn-md tamaño_nav mt-2" href="cerrar_sesion.php">Cerrar Sesion</a> </li>';
+                }else{
+                  echo '<li class="nav-item"> 
+                  <a href="inicio_sesion.php" class="button">
+                    <button type="button" class="btn btn-outline-primary btn-md tamaño_nav mt-2">Iniciar Sesion</button>
+                  </a>
+                </li>
+      
+                <li class="nav-item"> 
+                  <a href="registrar.php" class="button">
+                    <button type="button" class="btn btn-secondary btn-md tamaño_nav mt-2">Registrarse</button>
+                  </a>
+                </li>';
+                }
+              
+              ?>
+
+         
 
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger fab fa-facebook-square tamaño_logo" href="#contact"></a>

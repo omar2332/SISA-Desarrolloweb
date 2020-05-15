@@ -1,22 +1,20 @@
 <?php 
+      
       if(isset($_SESSION['email'])){
         header('location: index.php');
 
       }
       
-      $mysqli=new mysqli("localhost:3307","root","root","sisa"); 
-  
-        if(mysqli_connect_errno()){
-            echo 'Conexion Fallida : ', mysqli_connect_error();
-            exit();
-        }
+        include_once 'conexion_mysqli.php';
 
         if(!empty($_POST))
         {
-          $errores = ''          
+          
+          $errores = '';          
+          $correctamente = '';
          
-          $nombre = mysqli_real_escape_string($mysqli,$_POST['fname']);
-          $apellido = mysqli_real_escape_string($mysqli,$_POST['lname']);
+          $nombre = mysqli_real_escape_string($mysqli,$_POST['name']);
+          $apellido = mysqli_real_escape_string($mysqli,$_POST['apellido']);
           $email = mysqli_real_escape_string($mysqli,$_POST['email']);
           $telefono = mysqli_real_escape_string($mysqli,$_POST['phone']);
           $contraseña = mysqli_real_escape_string($mysqli,$_POST['contraseña']);
@@ -26,26 +24,39 @@
           $contraseña2 = hash('ripemd160', $contraseña2);
 
 
-          if($contraseña != $contraseña){
-            $errores .= '<div class="alert alert-danger" role="alert">Las contraseñas no coinciden</div>'
-
+          if($contraseña == $contraseña2 and !empty($contraseña)){
+            
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-              $errores .= '<div class="alert alert-danger" role="alert">Email no es valido</div>'
-              
+               $errores .= '<div class="alert alert-danger" role="alert">El email no es valido</div>';
+
+            }else{
+              $sql = "select * from usuario where email = '$email' ";
+              $resultado=$mysqli->query($sql);
+              $columnas = $resultado->num_rows;
+              if($columnas > 0) {
+                $errores .= '<div class="alert alert-danger py-3" role="alert">El email ya esta registrado</div>.';
+              }else {
+                //$sql = "insert into usuario(nombre,apellido,email,contraseña,telefono,id_jerarquia) values ('$nombre','$apellido','$email','$contraseña','$telefono',2)";
+                //$result=$mysqli->query($sql);
+
+                $correctamente .= '';
+                
+                header("location: registro_exito.php?email=". $_POST['email']);
             }
 
 
-            $sql = "select * from usuarios where email = '$usuario' "
-            $resultado=$mysqli->query($sql2);
-            $columnas = $resultado->num_rows;
-          }
+            }
+
+
+              
+            
+            }else{
+              $errores .= '<div class="alert alert-danger py-3" role="alert">Las contraseñas no coinciden</div>';
+
+            }
 
           
-          $sql = "insert into usuario(nombre,apellido,email,contraseña,telefono,id_jerarquia) values ('$nombre','$apellido','$email','$contraseña','$telefono',1)";
-          $result=$mysqli->query($sql);
-
-          
-          header("location: index.php");  
+            
         
         }
 
@@ -58,10 +69,20 @@
                 <div class="row py-5">
                     <div class="col-md-12">
                         <div class="well well-sm">
-                            <form class="form-horizontal" method="post" onsubmit="return validar();">
+                            <form class="form-horizontal" method="post" onsubmit = "return validar();">
                                 <fieldset id="campos">
+
+                                
                                     <legend class="text-center header">Registrarse</legend>
-            
+
+                                      <div class="col-md-8 col-md-offset-2 mt-5">
+                                        <?php
+                                          echo $errores;
+                                        ?>
+                                      </div>
+
+                                       
+
                                     <div class="form-group">
                                         <span class="col-md-1 col-md-offset-2 text-center"></span>
                                         <div class="col-md-8">
@@ -71,7 +92,7 @@
                                     <div class="form-group">
                                         <span class="col-md-1 col-md-offset-2 text-center"></span>
                                         <div class="col-md-8">
-                                            <input id="lname" name="Apellido" type="text" placeholder="Apellido" class="form-control" required>
+                                            <input id="lname" name="apellido" type="text" placeholder="Apellido" class="form-control" required>
                                         </div>
                                     </div>
             
@@ -92,20 +113,20 @@
                                     <div class="form-group">
                                       <span class="col-md-1 col-md-offset-2 text-center"></i></span>
                                       <div class="col-md-8">
-                                          <input id="pass" name="contraseña" type="pass" placeholder="Contraseña" class="form-control" required>
+                                          <input id="pass" name="contraseña" type="password" placeholder="Contraseña" class="form-control" required>
                                       </div>
                                     </div>
 
                                     <div class="form-group">
                                       <span class="col-md-1 col-md-offset-2 text-center"></i></span>
                                       <div class="col-md-8">
-                                          <input id="pass" name="contraseña2" type="pass" placeholder="Confirma tu contraseña" class="form-control" required>
+                                          <input id="pass" name="contraseña2" type="password" placeholder="Confirma tu contraseña" class="form-control" required>
                                       </div>
                                     </div>
             
-                                    <div class="form-group">
+                                    <div class="form-group mt-4 py-3">
                                         <div class="col-md-12 text-center">
-                                            <button type="submit" class="btn btn-primary btn-lg" onclick = "">Enviar</button>
+                                            <button type="submit" class="btn btn-primary btn-lg" onclick = "" name ="btnEnviar">Enviar</button>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -114,6 +135,18 @@
                     </div>
                 </div>
             </div>
+            <div class="modal hide fade" id="Modal" >
+          <form method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" style="margin-top:-10px">×</button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="text" name="text">Test</textarea>
+                </div>
+                <div class="modal-footer">
+                </div>
+          </form>
+         </div>
 
   <!-- End your project here-->
 

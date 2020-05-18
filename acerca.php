@@ -1,23 +1,24 @@
 <?php include('cabecera_usuario.php'); ?>
 
-      <section id="contact">
+      <section id="about">
         <div class="container">
-          <div class="row mr-5">
-            <div class="col-lg-8 mx-auto">
-              <h1 class = "px-4">Contactanos</h1>
-              <p class="lead mr-5" style="padding: 30px; float: left; width: 40%; text-align: justify;">
-                Castilla 157, Int 3 <br>
-                Álamos C.P. 03400 <br>
-                Benito Juárez <br>
-                Ciudad de México, México. <br>
-                Teléfono: 62 59 53 00 <br>
-                Correo: <a href="">cbpuniformes@gmail.com</a> 
-                <br> <br>
-                
-              </p>
-              <p style=" margin-bot:50px;float: right; width: 45%; text-align: inherit;">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7526.723490785786!2d-99.143118!3d19.39677!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x4ecab6e2de70ed84!2sConfecciones%20Empresariales%20SISA!5e0!3m2!1ses!2smx!4v1587842219326!5m2!1ses!2smx" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-              </p>
+          <div class="row">
+            <div class="col-9 mx-auto">
+              <h1>Confecciones empresariales SISA</h1>
+              <div class="px-5 ml-5">
+                <img src="imagenes/logo.png" width="350" height="301">
+              </div>
+              
+              
+               <p> Somos una empresa consiente de lo que el cliente espera, por lo que siempre trabajamos, con el objetivo de brindar satisfacción a todos aquellos que confian en nosotros.<br><br> Por ello, ofrecemos precios razonables, calidad, seriedad, eficiencia y puntualidad. 
+                Nuestro negocio ofrece soluciones y servicios acordes a sus necesidades, con notable calidad en la materia prima que utilizamos para la fabricación de nuestras prendas. <br><br>
+                Por todo lo anterior, le invito a formar parte y ser impulsor de esta nueva generación de empresas.<br><br>
+                En esta pagina podras encontrar todos nuestros productos.<br><br>
+                Tambien podras contactar con nosotros desde este sitio web.<br><br></p>
+
+                <p>Reciba un cordial saludo.</p>
+              
+              
             </div>
           </div>
         </div>

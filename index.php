@@ -1,4 +1,8 @@
-<?php include('cabecera_usuario.php'); ?>
+<?php include('cabecera_usuario.php');
+
+  
+
+?>
 
   
 
@@ -8,13 +12,13 @@
     <div class="container text-center">
       <div class="row">
 
-        <div class="col">
+        <div class="col mt-3 mr-4">
           <img src="imagenes/logo.png" width="350"
           height="301">
         </div>
-        <div class="col">
+        <div class="col mb-4">
           <h1 class="py-3" > Bienvenido a Confecciones Empresariales SISA</h1>
-          <p class="lead">Somos un negocio especializado en la manufactura y venta de chalecos y uniformes: <br> Ejecutivos, Empresariales, Industriales, De Seguridad, Médicos, Escolares</p>
+          <p class="lead">Somos una empresa consiente de lo que el cliente espera, por lo que siempre trabajamos, con el objetivo de brindar satisfacción a todos aquellos que confían en nosotros. <br> Por ello, ofrecemos precios razonables, calidad, seriedad, eficiencia y puntualidad.</p>
         </div>
       </div>
       
@@ -31,8 +35,7 @@
           <p class="lead">Somos una empresa 100% Mexicana</p>
           <ul>
             <li>Somos un negocio especializado en la manufactura y venta de Uniformes Ejecutivos, Empresariales, Industriales, de Seguridad y Médicos.</li>
-            <li>En esta pagina podras encontrar todos nuestros productos</li>
-            <li>Tambien podras contactar con nosotros desde este sitio web</li>
+            <li>Nuestro negocio ofrece soluciones y servicios acordes a sus necesidades, con notable calidad en la materia prima que utilizamos para la fabricación de nuestras prendas.</li>
           </ul>
         </div>
       </div>
@@ -60,8 +63,8 @@
             Álamos C.P. 03400 <br>
             Benito Juárez <br>
             Ciudad de México, México. <br>
-            Teléfono: 01 (55) 76 02 09 52 y 01 (55) 76 02 09 53 <br>
-            Correo: <a href="">ventas@confeccionessisa.com.mx</a> 
+            Teléfono: : 62 59 53 00<br>
+            Correo: <a href="">cbpuniformes@gmail.com</a> 
             <br> <br>
             
           </p>

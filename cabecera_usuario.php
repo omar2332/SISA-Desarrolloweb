@@ -36,6 +36,14 @@
                 echo '<link href="css/registrar.css" rel="stylesheet">';
         
     }
+
+    include_once 'conexion_pdo.php';
+    $sql_categorias = 'select * from clasificacion_productos';
+  
+    $gsent= $pdo -> prepare($sql_categorias);
+    $gsent->execute();
+    $resultado = $gsent->fetchAll();
+
   ?>
 
 </head>
@@ -55,15 +63,16 @@
             <a class="nav-link js-scroll-trigger tamaño_nav" href="index.php">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger tamaño_nav" href="acerca.html">Acerca de</a>
+            <a class="nav-link js-scroll-trigger tamaño_nav" href="acerca.php ">Acerca de</a>
           </li>
           <li class="nav-item">
               <div class="dropdown">
                 <a class="nav-link dropdown-toggle tamaño_nav" id="productos" data-toggle="dropdown">Productos</a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="catalogo.php">Categoria 1</a>
-                  <a class="dropdown-item" href="catalogo.php">Categoria 2</a>
-                  <a class="dropdown-item" href="catalogo.php">Categoria 3</a>
+                  <?php foreach($resultado as $categoria): ?>
+                  <a class="dropdown-item" href="catalogo.php?clasificacion=<?php echo $categoria['id_clasificacion']?>"><?php echo $categoria['nombre_clasificacion']; ?></a>
+
+                  <?php endforeach?>
               </div>
             </div>  
 
@@ -101,11 +110,7 @@
          
 
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger fab fa-facebook-square tamaño_logo" href="#contact"></a>
-          </li>
-
-          <li class="nav-item"> 
-            <a class="nav-link js-scroll-trigger fab fa-google-plus-g tamaño_logo" href="#contact"></a>
+            <a class="nav-link js-scroll-trigger fab fa-facebook-square tamaño_logo" href="https://www.facebook.com/ConfeccionessSISA/"></a>
           </li>
 
 

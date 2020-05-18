@@ -12,11 +12,6 @@
           
           $errores = '';          
           $correctamente = '';
-         
-          $nombre = mysqli_real_escape_string($mysqli,$_POST['name']);
-          $apellido = mysqli_real_escape_string($mysqli,$_POST['apellido']);
-          $email = mysqli_real_escape_string($mysqli,$_POST['email']);
-          $telefono = mysqli_real_escape_string($mysqli,$_POST['phone']);
           $contraseña = mysqli_real_escape_string($mysqli,$_POST['contraseña']);
           $contraseña2 = mysqli_real_escape_string($mysqli,$_POST['contraseña2']);
         
@@ -26,20 +21,25 @@
 
           if($contraseña == $contraseña2 and !empty($contraseña)){
             
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            if (!filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL)) {
                $errores .= '<div class="alert alert-danger" role="alert">El email no es valido</div>';
 
             }else{
-              $sql = "select * from usuario where email = '$email' ";
-              $resultado=$mysqli->query($sql);
-              $columnas = $resultado->num_rows;
+              $sql = "select * from usuario where email = ? ";
+              $stmt2 = $mysqli->prepare($sql);
+              $stmt2->bind_param("s", $_POST['email']);
+              $stmt2->execute();
+              $result= $stmt2->get_result();
+              $columnas = $result->num_rows;
+              
               if($columnas > 0) {
                 $errores .= '<div class="alert alert-danger py-3" role="alert">El email ya esta registrado</div>.';
               }else {
-                //$sql = "insert into usuario(nombre,apellido,email,contraseña,telefono,id_jerarquia) values ('$nombre','$apellido','$email','$contraseña','$telefono',2)";
-                //$result=$mysqli->query($sql);
-
-                $correctamente .= '';
+                $sql = "insert into usuario(nombre,apellido,email,contraseña,telefono,id_jerarquia) values (?,?,?,?,?,2)";
+      
+                $stmt2 = $mysqli->prepare($sql);
+                $stmt2->bind_param("sssss", $_POST['name'], $_POST['apellido'], $_POST['email'], hash('ripemd160', $_POST['contraseña']), $_POST['phone']);
+                $stmt2->execute();
                 
                 header("location: registro_exito.php?email=". $_POST['email']);
             }

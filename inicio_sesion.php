@@ -9,21 +9,14 @@ if(isset($_SESSION['id_usuario'])){
 
 include_once 'conexion_mysqli.php';
 
-if(!empty($_POST))
-{
-
- 
-  $usuario = mysqli_real_escape_string($mysqli,$_POST['email']);
-  $password = mysqli_real_escape_string($mysqli,$_POST['password']);
+if(!empty($_POST)){
   $error = '';
-  
-  $password =  hash('ripemd160', $password);
-  
-  $sql = "SELECT * FROM usuario WHERE email = '$usuario' AND contraseña = '$password' AND id_jerarquia = 2"; //usuario normal
-  $result=$mysqli->query($sql);
+  $sql = "SELECT * FROM usuario WHERE email = ? AND contraseña = ? AND id_jerarquia = 2"; //usuario normal
+  $stmt2 = $mysqli->prepare($sql);
+  $stmt2->bind_param("ss", $_POST['email'], hash('ripemd160', $_POST['password']));
+  $stmt2->execute();
+  $result= $stmt2->get_result();
   $rows = $result->num_rows;
-  
-  //SELECT * FROM normal,cliente WHERE cliente.correo = 'luis@gmail.com' AND cliente.contrasenia = '12345' AND normal.id_normal = cliente.id_cliente
 
   if($rows > 0) {
     
@@ -31,6 +24,7 @@ if(!empty($_POST))
     $_SESSION['id_usuario'] = $row['id_usuario'];
     $_SESSION['email'] = $row['email'];
     $_SESSION['nombre'] = $row['nombre'];
+    $_SESSION['id_clasificacion'] = $row2['id_clasificacion'];
 
     
     header("location: index.php"); 
@@ -38,11 +32,16 @@ if(!empty($_POST))
     
   }
 
-    $sql2 = "SELECT * FROM usuario WHERE email = '$usuario' AND contraseña = '$password' AND id_jerarquia = 1"; //usuario administrador
-    $result2=$mysqli->query($sql2);
+    $sql2 = "SELECT * FROM usuario WHERE email = ? AND contraseña = ? AND id_jerarquia = 1"; //usuario administrador
+    $stmt = $mysqli->prepare($sql2);
+    $stmt->bind_param("ss", $_POST['email'], hash('ripemd160', $_POST['password']));
+    $stmt->execute();
+    $result2= $stmt->get_result();
     $rows2 = $result2->num_rows;
-    //echo $rows2;
-    if($rows2 > 0) {
+    
+
+
+  if($rows2 > 0) {
       $row2 = $result2->fetch_assoc();
       $_SESSION['id_usuario'] = $row2['id_usuario'];
       $_SESSION['nombre'] = $row2['nombre'];
@@ -50,7 +49,8 @@ if(!empty($_POST))
       
       header("location: home.php");
       exit();
-   }else {
+    }else {
+    
     $error .= '<div class="alert alert-danger" role="alert">El email o contraseña son incorrectos.</div>';
   }
 
@@ -82,9 +82,7 @@ if(!empty($_POST))
           
                   <div class="col-md-4 col-lg-8 mx-auto">
                         <h3 class="login-heading mb-4 text-sm-center">INICIO DE SESION</h3>
-                        <?php
-                          echo "$sql";
-                        ?>
+
                         
                       <form method ="post">
 

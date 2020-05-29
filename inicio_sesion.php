@@ -7,15 +7,14 @@ if(isset($_SESSION['id_usuario'])){
   header("Location: index.php");
 }
 
-include_once 'conexion_mysqli.php';
-
+include_once './PHP/sql.php';
+$sql_objeto = new sql();
 if(!empty($_POST)){
   $error = '';
   $sql = "SELECT * FROM usuario WHERE email = ? AND contraseña = ? AND id_jerarquia = 2"; //usuario normal
-  $stmt2 = $mysqli->prepare($sql);
-  $stmt2->bind_param("ss", $_POST['email'], hash('ripemd160', $_POST['password']));
-  $stmt2->execute();
-  $result= $stmt2->get_result();
+
+  $sql_objeto->conexion_mysqli();
+  $result= $sql_objeto->consulta_individual_mysqli($sql);
   $rows = $result->num_rows;
 
   if($rows > 0) {
@@ -33,10 +32,7 @@ if(!empty($_POST)){
   }
 
     $sql2 = "SELECT * FROM usuario WHERE email = ? AND contraseña = ? AND id_jerarquia = 1"; //usuario administrador
-    $stmt = $mysqli->prepare($sql2);
-    $stmt->bind_param("ss", $_POST['email'], hash('ripemd160', $_POST['password']));
-    $stmt->execute();
-    $result2= $stmt->get_result();
+    $result2=  $sql_objeto->consulta_individual_mysqli($sql2);
     $rows2 = $result2->num_rows;
     
 
@@ -52,12 +48,13 @@ if(!empty($_POST)){
     }else {
     
     $error .= '<div class="alert alert-danger" role="alert">El email o contraseña son incorrectos.</div>';
+    
   }
 
 
 }
 
-
+$sql_objeto->cerrar_mysqli();
 
 ?>
 

@@ -5,60 +5,47 @@
 
       }
       
-        include_once 'conexion_mysqli.php';
-
+        include_once './PHP/sql.php';
+        $sql_objeto = new sql();
         if(!empty($_POST))
         {
-          
-          $errores = '';          
-          $correctamente = '';
-          $contraseña = mysqli_real_escape_string($mysqli,$_POST['contraseña']);
-          $contraseña2 = mysqli_real_escape_string($mysqli,$_POST['contraseña2']);
-        
-          $contraseña = hash('ripemd160', $contraseña);
-          $contraseña2 = hash('ripemd160', $contraseña2);
-
-
-          if($contraseña == $contraseña2 and !empty($contraseña)){
             
-            if (!filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL)) {
-               $errores .= '<div class="alert alert-danger" role="alert">El email no es valido</div>';
+            $sql_objeto->conexion_mysqli();
+            $errores = '';          
+            $correctamente = '';
+            $email = $_POST['email'];
+            $contraseña = mysqli_real_escape_string($mysqli,$_POST['contraseña']);
+            $contraseña2 = mysqli_real_escape_string($mysqli,$_POST['contraseña2']);
+            $contraseña = hash('ripemd160', $contraseña);
+            $contraseña2 = hash('ripemd160', $contraseña2);
 
-            }else{
-              $sql = "select * from usuario where email = ? ";
-              $stmt2 = $mysqli->prepare($sql);
-              $stmt2->bind_param("s", $_POST['email']);
-              $stmt2->execute();
-              $result= $stmt2->get_result();
-              $columnas = $result->num_rows;
+
+            if($contraseña == $contraseña2 and !empty($contraseña)){
               
-              if($columnas > 0) {
-                $errores .= '<div class="alert alert-danger py-3" role="alert">El email ya esta registrado</div>.';
-              }else {
-                $sql = "insert into usuario(nombre,apellido,email,contraseña,telefono,id_jerarquia) values (?,?,?,?,?,2)";
-      
-                $stmt2 = $mysqli->prepare($sql);
-                $stmt2->bind_param("sssss", $_POST['name'], $_POST['apellido'], $_POST['email'], hash('ripemd160', $_POST['contraseña']), $_POST['phone']);
-                $stmt2->execute();
+              if (!filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                $errores .= '<div class="alert alert-danger" role="alert">El email no es valido</div>';
+
+              }else{
+                $sql = "select * from usuario where email = ? ";
+                $result= $sql_objeto->consulta_individual_mysqli_email($sql);
+                $columnas = $result->num_rows;
                 
-                header("location: registro_exito.php?email=". $_POST['email']);
-            }
+                if($columnas > 0) {
+                  $errores .= '<div class="alert alert-danger py-3" role="alert">El email ya esta registrado</div>.';
+                }else {
+                  $sql = "insert into usuario(nombre,apellido,email,contraseña,telefono,id_jerarquia) values (?,?,?,?,?,2)";
+                  $sql_objeto->insertar_usuario_mysqli($sql);
+                  header("location: registro_exito.php?email=". $email);
+                }
 
 
-            }
-
-
-              
-            
+              }                      
             }else{
-              $errores .= '<div class="alert alert-danger py-3" role="alert">Las contraseñas no coinciden</div>';
+                $errores .= '<div class="alert alert-danger py-3" role="alert">Las contraseñas no coinciden</div>';
 
             }
-
-          
-            
-        
         }
+        $sql_objeto->cerrar_mysqli();
 
 
 ?>

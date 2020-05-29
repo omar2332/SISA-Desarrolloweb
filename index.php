@@ -13,11 +13,10 @@
       <div class="row">
 
         <div class="col mt-3 mr-4">
-          <img src="imagenes/logo.png" width="350"
-          height="301">
+          <img src="imagenes/logo.png" width="350" height="301">
         </div>
         <div class="col mb-4">
-          <h1 class="py-3" > Bienvenido a Confecciones Empresariales SISA</h1>
+          <h1 class="py-3">Hola mundo</h1>
           <p class="lead">Somos una empresa consiente de lo que el cliente espera, por lo que siempre trabajamos, con el objetivo de brindar satisfacción a todos aquellos que confían en nosotros. <br> Por ello, ofrecemos precios razonables, calidad, seriedad, eficiencia y puntualidad.</p>
         </div>
       </div>
@@ -102,7 +101,27 @@
 
   <!-- Custom JavaScript for this theme -->
   <script src="js/scrolling-nav.js"></script>
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v7.0"></script>
+  
+  
+  <?php if(isset($_SESSION["id_usuario"])): ?>
+  <section class="chat-container">
+	<div class="chat-button">
+		Chat de Facebook
+	</div>
+	<div class="chat-content">
+  <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FConfeccionessSISA%2F&tabs=messages&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&appId" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+	</div>
+  </section>
 
+  <script>
+    $(".chat-button").on('click', function(e){
+          e.preventDefault();
+          $(".chat-content").slideToggle('fast');
+    });
+  </script>
+  <?endif?>
 </body>
 
 </html>

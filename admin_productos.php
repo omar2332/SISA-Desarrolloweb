@@ -1,9 +1,23 @@
 <?php include('cabecera_home.php'); ?>
+
+<?php 
+$dir = './imagenes/';
+$error = '';
+if($_POST){
+	echo $_POST['nombre'] ;
+	echo $_POST['clasificacion'] ;
+	echo $_POST['descripcion'] ;
+	echo $_POST['precio'] ;
+
+}
+
+?>
 		<!-- Content page -->
 		<div class="container-fluid">
 			<div class="page-header">
 			  <h1 class="text-titles"><i class="zmdi zmdi-dns zmdi-hc-fw"></i> Productos</small></h1>
 			</div>
+			<?php echo $tamano_archivo?>
 			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
 		</div>
 		<div class="container-fluid">
@@ -19,10 +33,10 @@
 							<div class="container-fluid">
 								<div class="row">
 									<div class="col-xs-12 col-md-10 col-md-offset-1">
-									    <form action="">
+									    <form method="POST" enctype="multipart/form-data">
 									    	<div class="form-group label-floating">
 											  <label class="control-label">Nombre</label>
-											  <input class="form-control" type="text">
+											  <input class="form-control" type="text" name='nombre'>
 											</div>
 											<div class="form-group">
 											  <label class="control-label">Categoria</label>
@@ -36,7 +50,7 @@
 											  $resultado = $gsent->fetchAll();
 
 											  ?>
-										        <select class="form-control">
+										        <select class="form-control" name = "clasificacion">
 												<?php foreach($resultado as $categoria): ?>
 										          <option><?php echo $categoria['nombre_clasificacion']?></option>
 												  <?php endforeach?>
@@ -45,16 +59,25 @@
 										    </div>
 											<div class="form-group">
 											  <label class="control-label">Descripcion</label>
-											  <textarea name="message" class="form-control" rows="5">Escribe aqui la descripcion del producto</textarea>
+											  <textarea name="descripcion" class="form-control" rows="5">Escribe aqui la descripcion del producto</textarea>
 											</div>
 											
 											<div class="form-group label-floating">
 											  <label class="control-label">Precio</label>
-											  <input class="form-control" type="text">
+											  <input class="form-control" type="text" name = "precio">
+											</div>
+
+											<div class="form-group">
+												<button class="btn">
+													<input type="hidden" name="MAX_FILE_SIZE" value="10000000000">
+													<input name="userfile" type="file">
+													Agregar imagen
+												</button> 	
+											
 											</div>
 
 										    <p class="text-center">
-										    	<button href="#!" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Agregar</button>
+										    	<button type ="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Agregar</button>
 										    </p>
 									    </form>
 									</div>

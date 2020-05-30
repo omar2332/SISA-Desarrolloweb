@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php session_start(); ?>
 <head>
 
   <meta charset="utf-8">
@@ -20,6 +20,10 @@
   <!-- Custom styles for this template -->
   <link href="css/scrolling-nav.css" rel="stylesheet">
 
+
+  <?php if(isset($_SESSION["id_usuario"])): ?>
+  <link rel="stylesheet" href="css/estilos.css">
+  <?php endif ?>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <!-- Bootstrap core CSS -->
@@ -88,7 +92,7 @@
           </li>
 
           <?php
-                session_start();  
+                 
                 if(isset($_SESSION["id_usuario"])){
                   echo '<li class="nav-item"> <a class="btn btn-outline-danger btn-md tamaño_nav mt-2" href="cerrar_sesion.php">Cerrar Sesion</a> </li>';
                 }else{

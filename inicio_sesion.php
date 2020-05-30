@@ -8,7 +8,9 @@ if(isset($_SESSION['id_usuario'])){
 }
 
 include_once './PHP/sql.php';
+include_once './PHP/usuario.php';
 $sql_objeto = new sql();
+$usuario_objeto = new usuario();
 if(!empty($_POST)){
   $error = '';
   $sql = "SELECT * FROM usuario WHERE email = ? AND contraseña = ? AND id_jerarquia = 2"; //usuario normal
@@ -19,12 +21,15 @@ if(!empty($_POST)){
 
   if($rows > 0) {
     
+    
     $row = $result->fetch_assoc();
     $_SESSION['id_usuario'] = $row['id_usuario'];
     $_SESSION['email'] = $row['email'];
     $_SESSION['nombre'] = $row['nombre'];
-    $_SESSION['id_clasificacion'] = $row2['id_clasificacion'];
+    $_SESSION['id_clasificacion'] = $row['id_clasificacion'];
 
+    $usuario_objeto->set_usuario($row['email'],$row['nombre'],$row['apellido'],$row['id_clasificacion'],$row['id_usuario']);
+    $_SESSION['usuario'] = $usuario_objeto;
     
     header("location: index.php"); 
     exit();
@@ -33,16 +38,17 @@ if(!empty($_POST)){
 
     $sql2 = "SELECT * FROM usuario WHERE email = ? AND contraseña = ? AND id_jerarquia = 1"; //usuario administrador
     $result2=  $sql_objeto->consulta_individual_mysqli($sql2);
-    $rows2 = $result2->num_rows;
+    $rows = $result2->num_rows;
     
 
 
-  if($rows2 > 0) {
-      $row2 = $result2->fetch_assoc();
-      $_SESSION['id_usuario'] = $row2['id_usuario'];
-      $_SESSION['nombre'] = $row2['nombre'];
-      $_SESSION['id_clasificacion'] = $row2['id_clasificacion'];
-      
+  if($rows > 0) {
+      $row = $result2->fetch_assoc();
+      $_SESSION['id_usuario'] = $row['id_usuario'];
+      $_SESSION['nombre'] = $row['nombre'];
+      $_SESSION['id_clasificacion'] = $row['id_clasificacion'];
+      $usuario_objeto->set_usuario($row['email'],$row['nombre'],$row['apellido'],$row['id_clasificacion'],$row['id_usuario']);
+      $_SESSION['usuario'] = $usuario_objeto;
       header("location: home.php");
       exit();
     }else {

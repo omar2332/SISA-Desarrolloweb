@@ -1,4 +1,14 @@
-<?php include('cabecera_usuario.php'); ?>
+<?php
+
+if(!isset($_GET['clasificacion'])){
+  header('location: index.php');
+}
+
+
+include('cabecera_usuario.php'); 
+
+
+?>
 
   <section id="services" class="bg-light">
       <div class="container">
@@ -6,43 +16,19 @@
               <div class="col-lg-8 mx-auto">
                 <!-- se muestran imagenes de los productos que se desean comprar -->
                   <div id="productos">
-                    <div class="media-left media-middle" style="padding: 10px;">
+                    <div class="media-left media-middle" style="padding-left:120px; display: block; margin-left: auto; margin-right: auto; width: 40%;">
                           <a href="#!" class="tooltips-general" data-toggle="tooltip" data-placement="right" title="Más información del producto">
                             <img class="media-object" src="imagenes/kitchen.png" alt="Medicina" width="50" height="131">
                           </a>
                     </div>
-                    <div class="media-body" style="padding: 10px;">
+                    <div class="media-body text-center" style="padding: 10px;">
                         <h4 class="media-heading">1 - Only for Kitchen</h4>
                         <div class="pull-left">
                             <strong>Limpiador de Cocina Only For. Elimina cochambre y grasa de la cocina dejando un fresco aroma.<br>
                             <strong>$27.50<br>
                         </div>
                     </div>
-                    <div class="media-left media-middle" style="padding: 10px;">
-                        <a href="#!" class="tooltips-general" data-toggle="tooltip" data-placement="right" title="Más información del producto">
-                          <img class="media-object" src="imagenes/window.png" alt="Medicina" width="50" height="131">
-                        </a>
-                    </div>
-                    <div class="media-body" style="padding: 10px;">
-                      <h4 class="media-heading">2 - Only for Window</h4>
-                      <div class="pull-left">
-                          <strong>Limpiador de Vidrios Only For. Limpia y da brillo a las superficies sin dejar rayas.<br>
-                          <strong>$27.50<br>
-                      </div>
-                    </div>
-                    <div class="media-left media-middle" style="padding: 10px;">
-                        <a href="#!" class="tooltips-general" data-toggle="tooltip" data-placement="right" title="Más información del producto">
-                          <img class="media-object" src="imagenes/wood.png" alt="Medicina" width="50" height="131">
-                        </a>
-                    </div>
-                    <div class="media-body" style="padding: 10px;">
-                      <h4 class="media-heading">3 - Only for Wood</h4>
-                      <div class="pull-left">
-                          <strong>Limpiador de Madera  Only For. Da brillo y limpieza sin dañar la capa de barniz de los muebles,<br>
-                          <strong>$27.50<br>
-                      </div>
-                    </div>
-                  </div>
+                    
                   <h6 style="text-align: right;">
                       Precio total
                   </h6>

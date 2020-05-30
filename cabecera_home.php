@@ -1,4 +1,5 @@
 <?php
+include_once './PHP/usuario.php';
 
 session_start();
 
@@ -25,7 +26,7 @@ if(!isset($_SESSION["nombre"])){
 
     switch($archivo_actual) 
     {
-        case "index.php":
+        case "home.php":
                 echo '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">';
         
     }
@@ -45,13 +46,12 @@ if(!isset($_SESSION["nombre"])){
 			<div class="full-box dashboard-sideBar-UserInfo">
 				<figure class="full-box">
 					<img src="./assets/img/avatar-anonimo.png">
-					<figcaption class="text-center text-titles mt-3"> <?php 
-						session_start();  
-						if(isset($_SESSION["nombre"])){
-						echo $_SESSION["nombre"];
+					<figcaption class="text-center text-titles mt-3">  <p><?php   
+						if(isset($_SESSION["usuario"])){
+							echo $_SESSION["usuario"]->get_nombre();
 						}
 						
-						?>
+						?></p>
 				</figcaption>
 				</figure>
 				<ul class="full-box list-unstyled text-center">

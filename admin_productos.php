@@ -1,14 +1,49 @@
-<?php include('cabecera_home.php'); ?>
+<?php 
+include_once './PHP/sql.php';
+include_once './PHP/producto.php';
+include('cabecera_home.php');
+$sql_objeto = new sql();
+$producto_objeto = new producto();
+?>
 
 <?php 
-$dir = './imagenes/';
+$dir_subida = '.\imagenes\ ';
 $error = '';
+//$dirs = array();
+$fichero_subido = '';
 if($_POST){
-	echo $_POST['nombre'] ;
-	echo $_POST['clasificacion'] ;
-	echo $_POST['descripcion'] ;
-	echo $_POST['precio'] ;
+	$sql_objeto->conexion_pdo();
+	
+	//echo $_POST['nombre'] ;
+	//echo $_POST['clasificacion'] ;
+	//echo $_POST['descripcion'] ;
+	//echo $_POST['precio'] ;
+	//datos del arhivo
+	if(isset($_FILES['userfile']['name'])){
+		
+		$nombre_archivo = $_FILES['userfile']['name'];
+		$tipo_archivo = $_FILES['userfile']['type'];
+		$tamano_archivo = $_FILES['userfile']['size'];
+		
+		$id_categoria = $sql_objeto->buscar_id_categoria_producto_nombre($_POST['clasificacion']);
+		$producto_objeto ->set_producto($id_categoria,$_POST['descripcion'],$_POST['nombre'],$_POST['precio'],$nombre_archivo);
+		$producto_objeto ->insertar_producto();
+		$id_producto = $sql_objeto->buscar_maximo_tabla('SELECT max(id_producto) as max_id FROM producto');
+		$producto_objeto->set_id($id_producto);
+		$producto_objeto->set_img();
+		$fichero_subido = $dir_subida . basename($_FILES['userfile']['name']);
 
+		//compruebo si las características del archivo son las que deseo
+		if (!((strpos($tipo_archivo, "png") || strpos($tipo_archivo, "jpeg")) && ($tamano_archivo < 10000000000))) {
+			echo '<div class="alert alert-warning" role="alert">La extensión o el tamaño de los archivos no es correcta. <br><br><table><tr><td><li>Se permiten archivos .gif o .jpg<br><li>se permiten archivos de 100 Kb máximo.</td></tr></table></div>';
+		}else{
+			if (move_uploaded_file($_FILES['userfile']['tmp_name'],  $fichero_subido)){
+					echo '<div class="alert alert-success" role="alert">El producto ha sido cargado correctamente.</div>';
+			}else{	
+					echo ' <div class="alert alert-warning" role="alert"> Ocurrió algún error al subir el fichero. No pudo guardarse.</div>';
+			}
+		}
+	}
 }
 
 ?>
@@ -100,37 +135,26 @@ if($_POST){
 										</tr>
 									</thead>
 									<tbody>
+										<?php  
+										$sql_categorias = 'SELECT * from producto,clasificacion_productos where producto.id_clasificacion = clasificacion_productos.id_clasificacion';
+										$gsent= $pdo -> prepare($sql_categorias);
+										$gsent->execute();
+										$resultado = $gsent->fetchAll();
+										?>
+										        
+										<?php foreach($resultado as $categoria): ?>        	  
 										<tr>
-											<td>1</td>
-											<td>First</td>
-											<td>Active</td>
-											<td>07/01/2017</td>
+											<td><?php echo $categoria['id_producto']?></td>
+											<td><?php echo $categoria['nombre']?></td>
+											<td><?php echo $categoria['nombre_clasificacion']?></td>
+											<td><?php echo $categoria['descripcion']?></td>
 
-											<td>$40</td>
+											<td>$<?php echo number_format($categoria['precio'], 2, '.', ','); ?></td>
 
 											<td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
 											<td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
 										</tr>
-										<tr>
-											<td>2</td>
-											<td>Second</td>
-											<td>Active</td>
-											<td>07/04/2017</td>
-											<td>$40</td>
-
-											<td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-											<td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>Third</td>
-											<td>Active</td>
-											<td>07/08/2017</td>
-											<td>$40</td>
-
-											<td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-											<td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-										</tr>
+										<?php endforeach?>
 									</tbody>
 								</table>
 								<ul class="pagination pagination-sm">
@@ -206,25 +230,7 @@ if($_POST){
 		</div>
 	</section>
 
-	<!-- Dialog help -->
-	<div class="modal fade" tabindex="-1" role="dialog" id="Dialog-Help">
-	  	<div class="modal-dialog" role="document">
-		    <div class="modal-content">
-			    <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			    	<h4 class="modal-title">Help</h4>
-			    </div>
-			    <div class="modal-body">
-			        <p>
-			        	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt beatae esse velit ipsa sunt incidunt aut voluptas, nihil reiciendis maiores eaque hic vitae saepe voluptatibus. Ratione veritatis a unde autem!
-			        </p>
-			    </div>
-		      	<div class="modal-footer">
-		        	<button type="button" class="btn btn-primary btn-raised" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> Ok</button>
-		      	</div>
-		    </div>
-	  	</div>
-	</div>
+
 	<!--====== Scripts -->
 	<script src="./js/jquery-3.1.1.min.js"></script>
 	<script src="./js/sweetalert2.min.js"></script>
@@ -238,3 +244,5 @@ if($_POST){
 	</script>
 </body>
 </html>
+
+<? $pdo = null ;?>

@@ -8,10 +8,30 @@ class sql{
     protected $pdo;
     protected $mysqli;
 
-    function buscar_usuario_id($id){
-        $sql = "SELECT * FROM usuario WHERE id_usuario = $id";
+
+    function buscar_maximo_tabla($sql){
+
         $gsent = $this->$pdo->prepare($sql);
         $gsent->execute();
+        $resultado = $gsent-> fetchAll();
+        
+        return intval($resultado[0][0]);
+    }
+
+    function buscar_id_categoria_producto_nombre($nombre){
+        $sql = "SELECT * FROM clasificacion_productos WHERE nombre_clasificacion = '$nombre'";
+        $gsent = $this->$pdo->prepare($sql);
+        $gsent->execute();
+        $resultado = $gsent->fetchAll();  
+    
+        
+        return $resultado[0]['id_clasificacion'];
+    }
+
+    function buscar_usuario_id($id){
+        $sql = "SELECT * FROM usuario WHERE id_usuario = ?";
+        $gsent = $this->$pdo->prepare($sql);
+        $gsent->execute($id);
         $result = $gsent->fetch(PDO::FETCH_ASSOC);  
         $num = $gsent->rowCount();
         print_r($num);
@@ -30,6 +50,29 @@ class sql{
 
     }
 
+    function pdo_insertar_producto($id_clasificacion,$descripcion,$nombre,$precio){
+        $sql_agregar = "INSERT INTO producto(id_clasificacion, descripcion, nombre, precio,descuento) VALUES (?, ?,?, ?,0);";
+        $sentencia = $this->$pdo->prepare($sql_agregar);
+        var_dump($sentencia);
+        $sentencia->execute(array($id_clasificacion,$descripcion,$nombre,$precio));
+        //echo "INSERT INTO producto(id_clasificacion, descripcion, nombre, precio,descuento) VALUES($id_clasificacion,'$descripcion','$nombre',$precio)";
+        
+    }
+
+    function pdo_insertar_img_producto($dir_img,$id_producto){
+        $sql_agregar = "INSERT INTO direcciones_imgs (id_producto, dir_img) VALUES (?, ?);";
+        $sentencia = $this->$pdo-> prepare($sql_agregar);
+        $sentencia->execute(array($id_producto,$dir_img));
+        //echo "INSERT INTO direcciones_imgs (id_producto, dir_img) VALUES ($id_producto,$dir_img)";
+
+    }
+
+    function pdo_contar_filas($sql){
+        $result= $this->consulta_individual_mysqli($sql);
+        $rows = $result->num_rows;
+        return $rows;
+    }
+
     function conexion_mysqli(){
         $this->$mysqli=new mysqli("localhost:3307","root","root","sisa"); 
 
@@ -37,7 +80,7 @@ class sql{
             echo 'Conexion Fallida : ', mysqli_connect_error();
             exit();
         }
-        echo 'conecto';
+        
     }
 
     function consulta_individual_mysqli($sql){
@@ -71,6 +114,9 @@ class sql{
 
     function cerrar_mysqli(){
         $this->$mysqli = null;
+    }
+    function cerrar_pdo(){
+        $pdo=null;
     }
 }
 

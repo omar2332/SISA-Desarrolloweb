@@ -1,4 +1,11 @@
-<?php include('cabecera_home.php'); ?>
+<?php include('cabecera_home.php');
+include_once './PHP/sql.php';
+$sql_objeto = new sql();
+$sql_objeto->conexion_mysqli();
+
+
+?>
+
 		<!-- Content page -->
 		<div class="container-fluid">
 			<div class="page-header">
@@ -14,7 +21,7 @@
 					<i class="zmdi zmdi-account"></i>
 				</div>
 				<div class="full-box tile-number text-titles">
-					<p class="full-box">7</p>
+					<p class="full-box"> <?php echo $sql_objeto->pdo_contar_filas('select * from usuario where id_jerarquia = 1 ');?></p>
 					<small>Registros</small>
 				</div>
 			</article>
@@ -26,7 +33,7 @@
 					<i class="zmdi zmdi-storage"></i>
 				</div>
 				<div class="full-box tile-number text-titles">
-					<p class="full-box">10</p>
+					<p class="full-box"><?php echo $sql_objeto->pdo_contar_filas('select * from producto');?></p>
 					<small>Registros</small>
 				</div>
 			</article>
@@ -38,7 +45,7 @@
 					<i class="zmdi zmdi-face"></i>
 				</div>
 				<div class="full-box tile-number text-titles">
-					<p class="full-box">10</p>
+					<p class="full-box"><?php echo $sql_objeto->pdo_contar_filas('select * from usuario where id_jerarquia = 2 ');?></p>
 					<small>Registros</small>
 				</div>
 			</article>
@@ -102,25 +109,7 @@
 		</div>
 	</section>
 
-	<!-- Dialog help -->
-	<div class="modal fade" tabindex="-1" role="dialog" id="Dialog-Help">
-	  	<div class="modal-dialog" role="document">
-		    <div class="modal-content">
-			    <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			    	<h4 class="modal-title">Help</h4>
-			    </div>
-			    <div class="modal-body">
-			        <p>
-			        	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt beatae esse velit ipsa sunt incidunt aut voluptas, nihil reiciendis maiores eaque hic vitae saepe voluptatibus. Ratione veritatis a unde autem!
-			        </p>
-			    </div>
-		      	<div class="modal-footer">
-		        	<button type="button" class="btn btn-primary btn-raised" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> Ok</button>
-		      	</div>
-		    </div>
-	  	</div>
-	</div>
+
 	<!--====== Scripts -->
 	<script src="./js/jquery-3.1.1.min.js"></script>
 	<script src="./js/sweetalert2.min.js"></script>

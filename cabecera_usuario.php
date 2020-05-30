@@ -85,7 +85,8 @@
 
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger tamaño_nav" href="#contact">Promociones</a>
+          <!-- crear pagina -->
+            <a class="nav-link js-scroll-trigger tamaño_nav" href="#contact">Cotizaciones</a> 
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger tamaño_nav" href="contacto.php">Contacto</a>

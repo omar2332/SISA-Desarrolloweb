@@ -16,7 +16,7 @@
           <img src="imagenes/logo.png" width="350" height="301">
         </div>
         <div class="col mb-4">
-          <h1 class="py-3">Hola mundo</h1>
+          <h1 class="py-3">Bienvenido A Confecciones Empresariales SISA</h1>
           <p class="lead">Somos una empresa consiente de lo que el cliente espera, por lo que siempre trabajamos, con el objetivo de brindar satisfacción a todos aquellos que confían en nosotros. <br> Por ello, ofrecemos precios razonables, calidad, seriedad, eficiencia y puntualidad.</p>
         </div>
       </div>
@@ -104,8 +104,8 @@
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v7.0"></script>
   
-  
-  <?php if(isset($_SESSION["id_usuario"])): ?>
+  <!-- corregir chat -->
+  <?php if(isset($_SESSION["id_usuario"])): ?> 
   <section class="chat-container">
 	<div class="chat-button">
 		Chat de Facebook

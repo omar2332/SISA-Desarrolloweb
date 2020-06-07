@@ -8,6 +8,15 @@ class sql{
     protected $pdo;
     protected $mysqli;
 
+    function editar_categoria_id($id,$nombre){
+        $sql = 'UPDATE clasificacion_productos SET nombre_clasificacion = ? WHERE id_clasificacion = ?';
+        $sentencia = $this->$pdo-> prepare($sql);
+        $sentencia->execute(array($nombre,$id));
+        
+        return true;
+
+    }
+
 
     function buscar_maximo_tabla($sql){
 
@@ -17,6 +26,17 @@ class sql{
         
         return intval($resultado[0][0]);
     }
+
+    function buscar_nombre_categoria_producto_id($id){
+        $sql = "SELECT * FROM clasificacion_productos WHERE id_clasificacion = $id";
+        $gsent = $this->$pdo->prepare($sql);
+        $gsent->execute();
+        $resultado = $gsent->fetchAll();  
+    
+        
+        return $resultado[0]['nombre_clasificacion'];
+    }
+
 
     function buscar_id_categoria_producto_nombre($nombre){
         $sql = "SELECT * FROM clasificacion_productos WHERE nombre_clasificacion = '$nombre'";
@@ -53,7 +73,7 @@ class sql{
     function pdo_insertar_producto($id_clasificacion,$descripcion,$nombre,$precio){
         $sql_agregar = "INSERT INTO producto(id_clasificacion, descripcion, nombre, precio,descuento) VALUES (?, ?,?, ?,0);";
         $sentencia = $this->$pdo->prepare($sql_agregar);
-        var_dump($sentencia);
+        //  var_dump($sentencia);
         $sentencia->execute(array($id_clasificacion,$descripcion,$nombre,$precio));
         //echo "INSERT INTO producto(id_clasificacion, descripcion, nombre, precio,descuento) VALUES($id_clasificacion,'$descripcion','$nombre',$precio)";
         

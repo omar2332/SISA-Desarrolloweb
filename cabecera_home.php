@@ -22,6 +22,7 @@ if(!isset($_SESSION["nombre"])){
     <link rel="stylesheet" href="./css/main.css">
     
     <?php
+	
     $archivo_actual = basename($_SERVER['PHP_SELF']); //Regresa el nombre del archivo actual
 
     switch($archivo_actual) 
@@ -50,7 +51,6 @@ if(!isset($_SESSION["nombre"])){
 						if(isset($_SESSION["usuario"])){
 							echo $_SESSION["usuario"]->get_nombre();
 						}
-						
 						?></p>
 				</figcaption>
 				</figure>

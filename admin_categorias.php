@@ -78,7 +78,7 @@ if($_POST){
 											<td><?php echo $categoria['nombre_clasificacion']; ?></td>
 
 
-											<td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+											<td><a href="editar_clasificacion_producto.php?id_clasificacion_producto=<?php echo $categoria['id_clasificacion'];?>" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
 											<td><a href="eliminar_clasificacion_productos.php?id_clasificacion_producto=<?php echo $categoria['id_clasificacion'];?>" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
                                         </tr>
                                         

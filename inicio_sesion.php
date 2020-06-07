@@ -26,7 +26,7 @@ if(!empty($_POST)){
     $_SESSION['id_usuario'] = $row['id_usuario'];
     $_SESSION['email'] = $row['email'];
     $_SESSION['nombre'] = $row['nombre'];
-    $_SESSION['id_clasificacion'] = $row['id_clasificacion'];
+    $_SESSION['id_clasificacion'] = $row['id_jerarquia'];
 
     $usuario_objeto->set_usuario($row['email'],$row['nombre'],$row['apellido'],$row['id_clasificacion'],$row['id_usuario']);
     $_SESSION['usuario'] = $usuario_objeto;
@@ -46,7 +46,7 @@ if(!empty($_POST)){
       $row = $result2->fetch_assoc();
       $_SESSION['id_usuario'] = $row['id_usuario'];
       $_SESSION['nombre'] = $row['nombre'];
-      $_SESSION['id_clasificacion'] = $row['id_clasificacion'];
+      $_SESSION['id_clasificacion'] = $row['id_jerarquia'];
       $usuario_objeto->set_usuario($row['email'],$row['nombre'],$row['apellido'],$row['id_clasificacion'],$row['id_usuario']);
       $_SESSION['usuario'] = $usuario_objeto;
       header("location: home.php");

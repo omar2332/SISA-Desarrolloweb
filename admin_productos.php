@@ -44,6 +44,8 @@ if($_POST){
 			}
 		}
 	}
+
+	header('location: admin_productos.php?var=1');
 }
 
 ?>
@@ -52,8 +54,14 @@ if($_POST){
 			<div class="page-header">
 			  <h1 class="text-titles"><i class="zmdi zmdi-dns zmdi-hc-fw"></i> Productos</small></h1>
 			</div>
-			<?php echo $tamano_archivo?>
-			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
+			<?php if( isset($_GET['var']) ){
+					echo '<div class="alert alert-success">
+
+					<p class="float-left">Producto Ingresado Correctamente </p> 
+					<a class= "float-right" href="admin_categorias.php"><i class="zmdi zmdi-check"></i></a>
+					</div>';
+				}?>
+			
 		</div>
 		<div class="container-fluid">
 			<div class="row">
@@ -77,12 +85,11 @@ if($_POST){
 											  <label class="control-label">Categoria</label>
 											  
 											  <?php
-											  include_once 'conexion_pdo.php';
-											  $sql_categorias = 'select * from clasificacion_productos';
-											
-											  $gsent= $pdo -> prepare($sql_categorias);
-											  $gsent->execute();
-											  $resultado = $gsent->fetchAll();
+											  
+											  $sql_objeto = new sql();
+											  $sql_objeto->conexion_pdo();
+								
+											  $resultado = $sql_objeto->consultar_todas_clasificacion_producto();
 
 											  ?>
 										        <select class="form-control" name = "clasificacion">
@@ -136,10 +143,10 @@ if($_POST){
 									</thead>
 									<tbody>
 										<?php  
-										$sql_categorias = 'SELECT * from producto,clasificacion_productos where producto.id_clasificacion = clasificacion_productos.id_clasificacion';
-										$gsent= $pdo -> prepare($sql_categorias);
-										$gsent->execute();
-										$resultado = $gsent->fetchAll();
+
+										
+										
+										$resultado =$sql_objeto ->consulta_producto_por_categoria();;
 										?>
 										        
 										<?php foreach($resultado as $categoria): ?>        	  

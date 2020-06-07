@@ -41,12 +41,11 @@
         
     }
 
-    include_once 'conexion_pdo.php';
-    $sql_categorias = 'select * from clasificacion_productos';
-  
-    $gsent= $pdo -> prepare($sql_categorias);
-    $gsent->execute();
-    $resultado = $gsent->fetchAll();
+    include_once './PHP/sql.php';
+    $sql_objeto = new sql();
+    $sql_objeto->conexion_pdo();
+    $resultado =$sql_objeto->consultar_todas_clasificacion_producto();
+
 
   ?>
 

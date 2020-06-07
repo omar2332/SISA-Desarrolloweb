@@ -1,12 +1,14 @@
 <?php include('cabecera_home.php'); 
-include_once 'conexion_pdo.php';
 
+include_once './PHP/sql.php';
+$sql_objeto = new sql();
+$sql_objeto->conexion_pdo();
+$mostrar = 0;
 if($_POST){
     $nombre = $_POST['nombreCategoria'];
-    $sql_agregar = 'insert into clasificacion_productos(nombre_clasificacion) values (?)';
-    $sentencia = $pdo -> prepare($sql_agregar);
-    $sentencia-> execute(array($nombre));
-    header('location: admin_categorias.php');
+	$sql_objeto->insertar_categoria($nombre);
+	$mostrar = 1;
+    header('location: admin_categorias.php?var=1');
 }
 
 
@@ -20,7 +22,22 @@ if($_POST){
 			<div class="page-header">
 			  <h1 class="text-titles"><i class="zmdi zmdi-dns zmdi-hc-fw"></i> Categorias</small></h1>
 			</div>
-			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
+			<!-- Aqui esta para que edites -->
+			<div class="alert alert-success">
+
+				<p class="float-left">Producto Ingresado Correctamente </p> 
+				<a class= "float-right" href="admin_categorias.php"><i class="zmdi zmdi-check"></i></a>
+			</div>
+			<?php 
+				//aqui cuando se crear un nuevo objeto y aparece la cosa esa, cuando lo tengas solo cambia lo que hay en el div
+				if( isset($_GET['var']) ){
+					echo '<div class="alert alert-success">
+
+					<p class="float-left">Producto Ingresado Correctamente </p> 
+					<a class= "float-right" href="admin_categorias.php"><i class="zmdi zmdi-check"></i></a>
+					</div>';
+				}
+			?>
 		</div>
 		<div class="container-fluid">
 			<div class="row">
@@ -64,12 +81,9 @@ if($_POST){
 									</thead>
 									<tbody>
                                         <?php
-                                            $sql_categorias = 'select * from clasificacion_productos';
-  
-                                            $gsent= $pdo -> prepare($sql_categorias);
-                                            $gsent->execute();
-                                            $resultado = $gsent->fetchAll();
-                                             foreach($resultado as $categoria): 
+
+                                            $resultado = $sql_objeto->consultar_todas_clasificacion_producto();
+                                            foreach($resultado as $categoria): 
                                         ?>
 
                                         

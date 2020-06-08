@@ -1,11 +1,21 @@
 <?php
-
+include('cabecera_usuario.php'); 
+include_once './PHP/sql.php';
+$sql_objeto = new sql();
 if(!isset($_GET['clasificacion'])){
   header('location: index.php');
 }
 
+$resultado= null;
 
-include('cabecera_usuario.php'); 
+if(isset($_GET['clasificacion'])){
+  $sql_objeto -> conexion_pdo();
+  $resultado =$sql_objeto ->mostrar_productos_por_id_categoria($_GET['clasificacion']);
+}
+
+
+
+
 
 
 ?>
@@ -15,24 +25,32 @@ include('cabecera_usuario.php');
           <div class="row">
               <div class="col-lg-8 mx-auto">
                 <!-- se muestran imagenes de los productos que se desean comprar -->
+
+                <?
+                $variable = 0;
+                foreach($resultado as $info): ?>
                   <div id="productos">
                     <div class="media-left media-middle" style="padding-left:120px; display: block; margin-left: auto; margin-right: auto; width: 40%;">
                           <a href="#!" class="tooltips-general" data-toggle="tooltip" data-placement="right" title="Más información del producto">
-                            <img class="media-object" src="imagenes/kitchen.png" alt="Medicina" width="50" height="131">
+                            <img class="media-object" src="imagenes/ <?php echo $info['dir_img']?>" alt="Medicina" width="50" height="131">
                           </a>
                     </div>
                     <div class="media-body text-center" style="padding: 10px;">
-                        <h4 class="media-heading">1 - Only for Kitchen</h4>
+                    <?php $variable++;?>
+                        <h4 class="media-heading"> <?php echo $variable ?> - <?php echo $info['nombre']?></h4>
                         <div class="pull-left">
-                            <strong>Limpiador de Cocina Only For. Elimina cochambre y grasa de la cocina dejando un fresco aroma.<br>
-                            <strong>$27.50<br>
+                            <strong><?php echo $info['descripcion']?><br>
+                            <strong>$<?php
+                            $numero = number_format($info['precio'], 2, '.', ',');
+                            echo $numero?><br>
                         </div>
                     </div>
                     
-                  <h6 style="text-align: right;">
-                      Precio total
-                  </h6>
-              </div>
+                    <!-- <h6 style="text-align: right;">
+                        Precio total
+                    </h6> -->
+                  </div>
+                  <?endforeach?>
           </div>
       </div>
   </section>

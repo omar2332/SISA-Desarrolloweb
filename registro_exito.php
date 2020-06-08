@@ -2,33 +2,24 @@
 <?php include('cabecera_usuario.php'); ?>
 <?php
 
+    include_once './PHP/sql.php';
 
 
     if(isset($_SESSION['email'])){
      header('location: index.php');
 
     }
-  
-    $mysqli=new mysqli("localhost:3306","root","root","sisa"); 
-
-    if(mysqli_connect_errno()){
-        echo 'Conexion Fallida : ', mysqli_connect_error();
-        exit();
-    }
-
-    $sql = "select * from usuario where email = ? ";
-    $stmt2 = $mysqli->prepare($sql);
-    $stmt2->bind_param("s", $_GET['email']);
-    $stmt2->execute();
-    $result= $stmt2->get_result();
-    $columnas = $result->num_rows;
+     
+    $sql_objeto = new sql();
+    $sql_objeto->conexion_mysqli();
+    $columnas = $sql_objeto->buscar_por_email_mysqli($_GET['email']);
     
     if($columnas > 0) {
 
 
       echo '<header class="bg-success text-white" style = "margin-top:50px;">
       <center> <h2>Se ha registrado correctamente</h2></center>.
-    </header>';
+      </header>';
       
   
     

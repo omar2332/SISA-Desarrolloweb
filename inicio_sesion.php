@@ -55,7 +55,7 @@ if(!empty($_POST)){
     
     $error .= '<div class="alert alert-danger" role="alert">El email o contraseña son incorrectos.</div>';
     
-  }
+  } 
 
 
 }

@@ -8,6 +8,43 @@ class sql{
     protected $pdo;
     protected $mysqli;
 
+    function mostrar_productos_por_id_categoria($id){
+        $sql_categorias = 'SELECT * from producto,direcciones_imgs where producto.id_clasificacion = ? and direcciones_imgs.id_producto=producto.id_producto';
+		$gsent= $this->$pdo-> prepare($sql_categorias);
+		$gsent->execute(array($id));
+        $resultado = $gsent->fetchAll();
+        return $resultado;
+    }
+
+    function insertar_categoria($nombre){
+        $sql_agregar = 'insert into clasificacion_productos(nombre_clasificacion) values (?)';
+        $sentencia = $this->$pdo -> prepare($sql_agregar);
+        $sentencia-> execute(array($nombre));
+    }
+    function consulta_producto_por_categoria(){
+        $sql_categorias = 'SELECT * from producto,clasificacion_productos where producto.id_clasificacion = clasificacion_productos.id_clasificacion';
+		$gsent= $this->$pdo -> prepare($sql_categorias);
+		$gsent->execute();
+        $resultado = $gsent->fetchAll();
+        return $resultado;
+    }
+    function consultar_todas_clasificacion_producto(){
+        $sql_categorias = 'select * from clasificacion_productos';
+        $gsent= $this->$pdo -> prepare($sql_categorias);
+        $gsent->execute();
+        $resultado = $gsent->fetchAll();
+        return $resultado;
+    }
+    function buscar_por_email_mysqli($email){
+        $sql = "select * from usuario where email = ? ";
+        $stmt2 = $this->$mysqli->prepare($sql);
+        $stmt2->bind_param("s", $email);
+        $stmt2->execute();
+        $result= $stmt2->get_result();
+        $columnas = $result->num_rows;
+        return $columnas;
+    }
+
     function editar_categoria_id($id,$nombre){
         $sql = 'UPDATE clasificacion_productos SET nombre_clasificacion = ? WHERE id_clasificacion = ?';
         $sentencia = $this->$pdo-> prepare($sql);
@@ -15,6 +52,12 @@ class sql{
         
         return true;
 
+    }
+
+    function eliminar_clasificacion_producto_por_id($id){
+        $sql_eliminar = 'delete from clasificacion_productos where id_clasificacion = ?';
+        $sentencia_eliminar = $this->$pdo -> prepare($sql_eliminar);
+        $sentencia_eliminar ->execute(array($id));
     }
 
 

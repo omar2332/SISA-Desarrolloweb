@@ -6,7 +6,8 @@ $sql_objeto->conexion_mysqli();
 
 ?>
 
-		<!-- Content page -->
+	<!-- Content page -->
+	<div class="container-fluid">
 		<div class="container-fluid">
 			<div class="page-header">
 			  <h1 class="text-titles">Registros</h1>
@@ -51,12 +52,12 @@ $sql_objeto->conexion_mysqli();
 			</article>
 			
 		</div>
-		
+</div>	
 
 	<!-- Notifications area -->
-	<section class="full-box Notifications-area">
-		<div class="full-box Notifications-bg btn-Notifications-area"></div>
-		<div class="full-box Notifications-body">
+	<section class="full-box Notifications-area" >
+	<div class="full-box Notifications-bg btn-Notifications-area" ></div>
+		<div class="full-box Notifications-body"  >
 			<div class="Notifications-body-title text-titles text-center">
 				Notifications <i class="zmdi zmdi-close btn-Notifications-area"></i>
 			</div>
@@ -108,6 +109,7 @@ $sql_objeto->conexion_mysqli();
 
 		</div>
 	</section>
+
 
 
 	<!--====== Scripts -->

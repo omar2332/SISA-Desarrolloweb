@@ -102,7 +102,7 @@ if(!isset($_SESSION["nombre"])){
 							<a href="admin.html"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Administradores</a>
 						</li>
 						<li>
-							<a href="teacher.html"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i> Clientes</a>
+							<a href="admin_clientes.php"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i> Clientes</a>
 						</li>
 
 					</ul>

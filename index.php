@@ -18,6 +18,7 @@
         <div class="col mb-4">
           <h1 class="py-3">Bienvenido A Confecciones Empresariales SISA</h1>
           <p class="lead">Somos una empresa consiente de lo que el cliente espera, por lo que siempre trabajamos, con el objetivo de brindar satisfacción a todos aquellos que confían en nosotros. <br> Por ello, ofrecemos precios razonables, calidad, seriedad, eficiencia y puntualidad.</p>
+          <p><button type="button" class="btn btn-secondary"><a href="#cotizacion" style="color: black;">Cotización</a></button></p>
         </div>
       </div>
       
@@ -25,6 +26,22 @@
     </div>
 
   </header>
+
+  <section id="cotizacion" class ="bg-light">
+    <h1 class="col-md-7 ml-md-auto">Cotización</h1>
+    <div class="container">
+      <form>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Asunto</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Mensaje</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="8"></textarea>
+      </div>
+      </form>
+    </div>
+  </section>
 
   <section id="about">
     <div class="container">

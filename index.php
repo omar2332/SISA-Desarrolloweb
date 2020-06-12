@@ -18,7 +18,7 @@
         <div class="col mb-4">
           <h1 class="py-3">Bienvenido A Confecciones Empresariales SISA</h1>
           <p class="lead">Somos una empresa consiente de lo que el cliente espera, por lo que siempre trabajamos, con el objetivo de brindar satisfacción a todos aquellos que confían en nosotros. <br> Por ello, ofrecemos precios razonables, calidad, seriedad, eficiencia y puntualidad.</p>
-          <p><button type="button" class="btn btn-secondary"><a href="#cotizacion" style="color: black;">Cotización</a></button></p>
+          <p><button type="button" class="btn btn-secondary"><a href="validacion_cot.php" style="color: black;">Cotización</a></button></p>
         </div>
       </div>
       

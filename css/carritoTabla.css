@@ -1,0 +1,35 @@
+#tabla{
+    position: static;
+    left: 0;
+    right: 0;
+}
+table{
+    text-align: center;
+    font-size: 95px;
+    border-collapse: collapse;
+    width: 75%;
+}
+#listas{
+    height: 50%;
+    text-align: center;
+    font-weight: bolder;
+}
+table, th, td {
+    border: 1px solid black;
+    font-size: 70px;
+}
+#totales{
+    position: absolute;
+    left: 0;
+}
+#totales p{
+    border: 1px solid black;
+    padding: 5px;;
+}
+#compraMas{
+    color: red;
+    text-decoration: underline;
+}
+#compraMas:active{
+    color: black;
+}

@@ -1,58 +1,68 @@
-<?php include('cabecera_home.php');
+<?php 
 include_once './PHP/sql.php';
+include('cabecera_home.php');
 $sql_objeto = new sql();
-$sql_objeto->conexion_mysqli();
-
-
 ?>
 
-	<!-- Content page -->
-	<div class="container-fluid">
+		<!-- Content page -->
 		<div class="container-fluid">
 			<div class="page-header">
-			  <h1 class="text-titles">Registros</h1>
+			  <h1 class="text-titles"><i class="zmdi zmdi-face"></i> Clientes</small></h1>
 			</div>
 		</div>
-		<div class="full-box text-center" style="padding: 30px 10px;">
-			<article class="full-box tile">
-				<div class="full-box tile-title text-center text-titles text-uppercase">
-					Administradores
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12">
+					<ul class="nav nav-tabs" style="margin-bottom: 15px; background-color: black">
+						<li class="active"><a href="#list" data-toggle="tab">Lista</a></li>
+					  	
+					</ul>
+					<div id="myTabContent" class="tab-content">
+						
+					  	<div class="tab-pane fade active in" id="list">
+							<div class="table-responsive">
+								<table class="table table-hover text-center">
+									<thead>
+										<tr>
+											<th class="text-center">#</th>
+											<th class="text-center">Nombre</th>
+											<th class="text-center">Apellido</th>
+											<th class="text-center">Telefono</th>
+											<th class="text-center">E-mail</th>
+											<th class="text-center">Eliminar</th>
+										</tr>
+									</thead>
+									<tbody>
+										        
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+
+											<td></td>
+
+											<td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+										</tr>
+										
+									</tbody>
+								</table>
+								<ul class="pagination pagination-sm">
+								  	<li class="disabled"><a href="#!">«</a></li>
+								  	<li class="active"><a href="#!">1</a></li>
+								  	<li><a href="#!">2</a></li>
+								  	<li><a href="#!">3</a></li>
+								  	<li><a href="#!">4</a></li>
+								  	<li><a href="#!">5</a></li>
+								  	<li><a href="#!">»</a></li>
+								</ul>
+							</div>
+					  	</div>
+					</div>
 				</div>
-				<div class="full-box tile-icon text-center">
-					<i class="zmdi zmdi-account"></i>
-				</div>
-				<div class="full-box tile-number text-titles">
-					<p class="full-box"> <?php echo $sql_objeto->pdo_contar_filas('select * from usuario where id_jerarquia = 1 ');?></p>
-					<small>Registros</small>
-				</div>
-			</article>
-			<article class="full-box tile">
-				<div class="full-box tile-title text-center text-titles text-uppercase">
-					Productos
-				</div>
-				<div class="full-box tile-icon text-center">
-					<i class="zmdi zmdi-storage"></i>
-				</div>
-				<div class="full-box tile-number text-titles">
-					<p class="full-box"><?php echo $sql_objeto->pdo_contar_filas('select * from producto');?></p>
-					<small>Registros</small>
-				</div>
-			</article>
-			<article class="full-box tile">
-				<div class="full-box tile-title text-center text-titles text-uppercase">
-					Clientes
-				</div>
-				<div class="full-box tile-icon text-center">
-					<i class="zmdi zmdi-face"></i>
-				</div>
-				<div class="full-box tile-number text-titles">
-					<p class="full-box"><?php echo $sql_objeto->pdo_contar_filas('select * from usuario where id_jerarquia = 2 ');?></p>
-					<small>Registros</small>
-				</div>
-			</article>
-			
+			</div>
 		</div>
-</div>	
+	</section>
 
 	<!-- Notifications area -->
 	<section class="full-box Notifications-area">
@@ -111,7 +121,6 @@ $sql_objeto->conexion_mysqli();
 	</section>
 
 
-
 	<!--====== Scripts -->
 	<script src="./js/jquery-3.1.1.min.js"></script>
 	<script src="./js/sweetalert2.min.js"></script>
@@ -125,3 +134,5 @@ $sql_objeto->conexion_mysqli();
 	</script>
 </body>
 </html>
+
+<? $pdo = null ;?>

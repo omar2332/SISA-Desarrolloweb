@@ -104,7 +104,7 @@ class sql{
         $usuario = 'root';
         $contraseña = 'root';    
         try {
-            $this->$pdo = new PDO('mysql:host=localhost:3307;dbname=sisa', $usuario, $contraseña);
+            $this->$pdo = new PDO('mysql:host=localhost:3306;dbname=sisa', $usuario, $contraseña);
         } catch (PDOException $e) {
             echo "¡Error!: " . $e->getMessage() . "<br/>";
             die();
@@ -137,7 +137,7 @@ class sql{
     }
 
     function conexion_mysqli(){
-        $this->$mysqli=new mysqli("localhost:3307","root","root","sisa"); 
+        $this->$mysqli=new mysqli("localhost:3306","root","root","sisa"); 
 
         if(mysqli_connect_errno()){
             echo 'Conexion Fallida : ', mysqli_connect_error();

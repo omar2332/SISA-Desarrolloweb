@@ -23,10 +23,11 @@ if($_POST){
 			  <h1 class="text-titles"><i class="zmdi zmdi-dns zmdi-hc-fw"></i> Categorias</small></h1>
 			</div>
 			<!-- Aqui esta para que edites -->
-			<div class="alert alert-success">
+			<div class="alert alert-success" id="alerta">
 
 				<p class="float-left">Producto Ingresado Correctamente </p> 
-				<a class= "float-right" href="admin_categorias.php"><i class="zmdi zmdi-check"></i></a>
+				<a class= "float-right" href="javascript:quitarAlert();"><i class="zmdi zmdi-check" id="palomita"></i></a>
+				<!-- Ahi llama a la funcion que esta hasta abajo en el script -->
 			</div>
 			<?php 
 				//aqui cuando se crear un nuevo objeto y aparece la cosa esa, cuando lo tengas solo cambia lo que hay en el div
@@ -202,6 +203,10 @@ if($_POST){
 	<script src="./js/main.js"></script>
 	<script>
 		$.material.init();
+		//Funcion para quitar el alert verde
+		function quitarAlert(){
+			var cuadro = document.getElementById("alerta").remove();
+		}
 	</script>
 </body>
 </html>

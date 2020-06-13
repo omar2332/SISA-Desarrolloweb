@@ -7,6 +7,15 @@ class sql{
 
     protected $pdo;
     protected $mysqli;
+    protected $contraseña = '3307';
+
+    function consultar_usuarios_por_categoria($categoria){
+        $sql_categorias = 'SELECT * from usuario where id_jerarquia = ?';
+		$gsent= $this->$pdo-> prepare($sql_categorias);
+		$gsent->execute(array($categoria));
+        $resultado = $gsent->fetchAll();
+        return $resultado;
+    }
 
     function mostrar_productos_por_id_categoria($id){
         $sql_categorias = 'SELECT * from producto,direcciones_imgs where producto.id_clasificacion = ? and direcciones_imgs.id_producto=producto.id_producto';
@@ -104,7 +113,7 @@ class sql{
         $usuario = 'root';
         $contraseña = 'root';    
         try {
-            $this->$pdo = new PDO('mysql:host=localhost:3306;dbname=sisa', $usuario, $contraseña);
+            $this->$pdo = new PDO('mysql:host=localhost:'.$this->contraseña.';dbname=sisa', $usuario, $contraseña);
         } catch (PDOException $e) {
             echo "¡Error!: " . $e->getMessage() . "<br/>";
             die();
@@ -131,13 +140,15 @@ class sql{
     }
 
     function pdo_contar_filas($sql){
+        
         $result= $this->consulta_individual_mysqli($sql);
+        
         $rows = $result->num_rows;
         return $rows;
     }
 
     function conexion_mysqli(){
-        $this->$mysqli=new mysqli("localhost:3306","root","root","sisa"); 
+        $this->$mysqli=new mysqli("localhost:".$this->contraseña,"root","root","sisa"); 
 
         if(mysqli_connect_errno()){
             echo 'Conexion Fallida : ', mysqli_connect_error();
@@ -175,12 +186,22 @@ class sql{
 
     }
 
+    function eliminar_usuario_por_id($id){
+        $sql_eliminar = 'delete from usuario where id_usuario = ?';
+        $sentencia_eliminar = $this->$pdo-> prepare($sql_eliminar);
+        $sentencia_eliminar ->execute(array($id));
+
+    }
+
     function cerrar_mysqli(){
         $this->$mysqli = null;
     }
     function cerrar_pdo(){
         $pdo=null;
     }
+
+
+
 }
 
 

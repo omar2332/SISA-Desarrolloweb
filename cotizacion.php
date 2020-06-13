@@ -7,51 +7,38 @@
   
 
 
-
-  <header class="bg-primary text-white">
-    <div class="container text-center">
-      <div class="row">
-
-        <div class="col mt-3 mr-4">
-          <img src="imagenes/logo.png" width="350" height="301">
-        </div>
-        <div class="col mb-4">
-          <h1 class="py-3">Bienvenido A Confecciones Empresariales SISA</h1>
-          <p class="lead">Somos una empresa consiente de lo que el cliente espera, por lo que siempre trabajamos, con el objetivo de brindar satisfacción a todos aquellos que confían en nosotros. <br> Por ello, ofrecemos precios razonables, calidad, seriedad, eficiencia y puntualidad.</p>
-          <a class="btn btn-secondary" href="validacion_cot.php" style="color: black;">Cotización</a>
-        </div>
+  <section id="cotizacion" class ="bg-light">
+    <h1 class="col-md-7 ml-md-auto">Cotización</h1>
+    <div class="container">
+      <form method = 'POST'>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Asunto</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1">
       </div>
-      
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Mensaje</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="8"></textarea>
+      </div>
     
-    </div>
 
-  </header>
-  <section id="about">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2>Acerca de esta pagina</h2>
-          <p class="lead">Somos una empresa 100% Mexicana</p>
-          <ul>
-            <li>Somos un negocio especializado en la manufactura y venta de Uniformes Ejecutivos, Empresariales, Industriales, de Seguridad y Médicos.</li>
-            <li>Nuestro negocio ofrece soluciones y servicios acordes a sus necesidades, con notable calidad en la materia prima que utilizamos para la fabricación de nuestras prendas.</li>
-          </ul>
+    <div class="row">
+        <div class="col-md-11 col-md-offset-3 ml-5 py-4 text-center">
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">
+                        Enviar
+                </button>
+            </div>
         </div>
-      </div>
+    </div>
+    
+      
+
+
+      </form>
     </div>
   </section>
 
-  <section id="services" class="bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2>Servicios que ofrecemos</h2>
-          <p class="lead">Nuestro negocio ofrece soluciones y servicios acordes a sus necesidades, con notable calidad en la materia prima que utilizamos para la fabricación de nuestras prendas.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
+
   <section id="contact">
     <div class="container">
       <div class="row">

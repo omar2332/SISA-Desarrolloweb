@@ -21,17 +21,7 @@ if(!isset($_SESSION["nombre"])){
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
     
-    <?php
-	
-    $archivo_actual = basename($_SERVER['PHP_SELF']); //Regresa el nombre del archivo actual
-
-    switch($archivo_actual) 
-    {
-        case "home.php":
-                echo '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">';
-        
-    }
-  ?>
+   
 	
 </head>
 <body>
@@ -85,12 +75,12 @@ if(!isset($_SESSION["nombre"])){
 						<li>
 							<a href="admin_categorias.php"><i class="zmdi zmdi-book zmdi-hc-fw"></i> Categorias</a>
 						</li>
-						<li>
+						<!-- <li>
 							<a href="section.html"><i class="zmdi zmdi-graduation-cap zmdi-hc-fw"></i> Section</a>
 						</li>
 						<li>
 							<a href="salon.html"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Salon</a>
-						</li>
+						</li> -->
 					</ul>
 				</li>
 				<li>
@@ -99,7 +89,7 @@ if(!isset($_SESSION["nombre"])){
 					</a>
 					<ul class="list-unstyled full-box">
 						<li>
-							<a href="admin.html"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Administradores</a>
+							<a href="admin.php"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Administradores</a>
 						</li>
 						<li>
 							<a href="admin_clientes.php"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i> Clientes</a>
@@ -113,14 +103,14 @@ if(!isset($_SESSION["nombre"])){
 					</a>
 					<ul class="list-unstyled full-box">
 						<li>
-							<a href="registration.html"><i class="zmdi zmdi-money-box zmdi-hc-fw"></i> Registration</a>
+							<a href="registration.html"><i class="zmdi zmdi-money-box zmdi-hc-fw"></i> Todas</a>
 						</li>
-						<li>
+						<!-- <li>
 							<a href="payments.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i> Payments</a>
-						</li>
+						</li> -->
 					</ul>
 				</li>
-				<li>
+				<!-- <li>
 					<a href="#!" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-shield-security zmdi-hc-fw"></i> Herramientas <i class="zmdi zmdi-caret-down pull-right"></i>
 					</a>
@@ -129,7 +119,7 @@ if(!isset($_SESSION["nombre"])){
 							<a href="school.html"><i class="zmdi zmdi-balance zmdi-hc-fw"></i> School Data</a>
 						</li>
 					</ul>
-				</li>
+				</li> -->
 			</ul>
 		</div>
 	</section>
@@ -151,3 +141,4 @@ if(!isset($_SESSION["nombre"])){
 
 			</ul>
 		</nav>
+	

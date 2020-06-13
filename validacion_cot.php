@@ -2,7 +2,7 @@
 include ('cabecera_usuario.php');
 session_start();
     if(isset($_SESSION['id_usuario'])){
-        header("location: index.php#cotizacion");
+        header("location: cotizacion.php");
       }else{
         echo('<section>
         <div class="container">

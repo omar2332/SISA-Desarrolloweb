@@ -52,7 +52,8 @@ $sql_objeto->conexion_mysqli();
 			</article>
 			
 		</div>
-</div>	
+	</div>	
+	</section>
 
 	<!-- Notifications area -->
 	<section class="full-box Notifications-area">

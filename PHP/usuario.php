@@ -12,11 +12,11 @@ class usuario{
     public function __construct() { }
 
     function set_usuario($email,$nombre,$apellido,$jerarquia,$id){
-        $this->email=$email;
-        $this->nombre=$nombre;
-        $this->apellido=$apellido;
-        $this->jerarquia =$jerarquia;
-        $this->id=$id;
+        $this->$email=$email;
+        $this->$nombre=$nombre;
+        $this->$apellido=$apellido;
+        $this->$jerarquia =$jerarquia;
+        $this->$id=$id;
     }
 
 
@@ -34,6 +34,9 @@ class usuario{
 
     function get_id(){
         return $this->id;
+    }
+    function get_jerarquia(){
+        return $this->jerarquia;
     }
 
 

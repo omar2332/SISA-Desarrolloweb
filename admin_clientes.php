@@ -2,6 +2,9 @@
 include_once './PHP/sql.php';
 include('cabecera_home.php');
 $sql_objeto = new sql();
+$sql_objeto->conexion_pdo();
+$resultado = $sql_objeto->consultar_usuarios_por_categoria(2) ;
+
 ?>
 
 		<!-- Content page -->
@@ -10,6 +13,21 @@ $sql_objeto = new sql();
 			  <h1 class="text-titles"><i class="zmdi zmdi-face"></i> Clientes</small></h1>
 			</div>
 		</div>
+
+		<?php if(isset($_GET['correctamente'])): ?>
+
+		<?php if($_GET['correctamente'] == 1): ?>
+
+			<div class="alert alert-success" role="alert">
+			 Se ha Eliminado correctamente al usuario
+			</div>
+		<?php else: ?>
+			<div class="alert alert-danger" role="alert">
+			Ha ocurrido un error
+			</div>
+		<? endif;?>
+		<? endif ?>
+
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12">
@@ -33,18 +51,19 @@ $sql_objeto = new sql();
 										</tr>
 									</thead>
 									<tbody>
-										        
+										<?php foreach($resultado as $usuario): ?>    
 										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
+											<td><?php echo $usuario['id_usuario']; ?></td>
+											<td><?php echo $usuario['nombre'] ;?></td>
+											<td><?php echo $usuario['apellido']; ?></td>
+											<td><?php echo $usuario['telefono'] ;?></td>
+											<td><?php echo $usuario['email'] ;?></td>
+											
 
-											<td></td>
-
-											<td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+											<td><a href="eliminar_usuario.php?id=<?php echo $usuario['id_usuario']; ?>" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
 										</tr>
-										
+										<?php endforeach; ?>
+									
 									</tbody>
 								</table>
 								<ul class="pagination pagination-sm">

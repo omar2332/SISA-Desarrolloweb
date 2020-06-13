@@ -23,13 +23,13 @@ if(isset($_GET['clasificacion'])){
   <section id="services" class="bg-light">
       <div class="container">
           <div class="row">
-              <div class="col-lg-8 mx-auto">
+              <div class="col-lg-8 mx-auto  ">
                 <!-- se muestran imagenes de los productos que se desean comprar -->
 
                 <?
                 $variable = 0;
                 foreach($resultado as $info): ?>
-                  <div id="productos">
+                  <div id="productos" class= 'my-5'>
                     <div class="media-left media-middle" style="padding-left:120px; display: block; margin-left: auto; margin-right: auto; width: 40%;">
                           <a href="#!" class="tooltips-general" data-toggle="tooltip" data-placement="right" title="Más información del producto">
                             <img class="media-object" src="imagenes/ <?php echo $info['dir_img']?>" alt="Medicina" width="50" height="131">
@@ -50,6 +50,7 @@ if(isset($_GET['clasificacion'])){
                         Precio total
                     </h6> -->
                   </div>
+
                   <?endforeach?>
           </div>
       </div>

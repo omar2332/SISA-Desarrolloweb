@@ -70,23 +70,20 @@
           </li>
           <li class="nav-item">
               <div class="dropdown">
-                <a class="nav-link dropdown-toggle tamaño_nav" id="productos" data-toggle="dropdown">Productos</a>
+                <p class="nav-link dropdown-toggle tamaño_nav" id="productos" data-toggle="dropdown">Productos</p>
                 <div class="dropdown-menu">
                   <?php foreach($resultado as $categoria): ?>
                   <a class="dropdown-item" href="catalogo.php?clasificacion=<?php echo $categoria['id_clasificacion']?>"><?php echo $categoria['nombre_clasificacion']; ?></a>
 
                   <?php endforeach?>
-              </div>
+                 </div>
             </div>  
 
             
 
 
           </li>
-          <li class="nav-item">
-          <!-- crear pagina -->
-            <a class="nav-link js-scroll-trigger tamaño_nav" href="#contact">Cotizaciones</a> 
-          </li>
+
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger tamaño_nav" href="contacto.php">Contacto</a>
           </li>

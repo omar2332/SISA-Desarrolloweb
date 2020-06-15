@@ -3,7 +3,7 @@ include_once './PHP/sql.php';
 include('cabecera_home.php');
 $sql_objeto = new sql();
 $sql_objeto->conexion_pdo();
-//$resultado = $sql_objeto->consultar_usuarios_por_categoria(2) ;
+$resultado_consulta = $sql_objeto->consultar_usuarios_por_categoria(2) ;
 
 //variables para paginacion
 $numero_clientes_paginacion = 2;
@@ -14,7 +14,8 @@ $paginas = ceil($paginas);
 ?>
 
 		<!-- Content page -->
-		<?php 
+		<?php
+		if($paginas >0){ 
 			if(!$_GET['pagina']){
 				header('Location:admin_clientes.php?pagina=1');
 			}
@@ -23,7 +24,8 @@ $paginas = ceil($paginas);
 			}
 
 			$iniciar = ($_GET['pagina']-1)*$numero_clientes_paginacion;
-			$resultado_paginacion = $sql_objeto-> consultar_clientes_paginacion($iniciar, $numero_clientes_paginacion);
+			$resultado_consulta = $sql_objeto-> consultar_clientes_paginacion($iniciar, $numero_clientes_paginacion);
+		}
 
 
 		?>
@@ -70,7 +72,7 @@ $paginas = ceil($paginas);
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach($resultado_paginacion as $usuario): ?>    
+										<?php foreach($resultado_consulta as $usuario): ?>    
 										<tr>
 											<td><?php echo $usuario['id_usuario']; ?></td>
 											<td><?php echo $usuario['nombre'] ;?></td>

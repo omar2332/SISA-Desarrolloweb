@@ -3,7 +3,46 @@ include_once './PHP/sql.php';
 include('cabecera_home.php');
 $sql_objeto = new sql();
 $sql_objeto->conexion_pdo();
-$resultado = $sql_objeto->consultar_usuarios_por_categoria(2) ;
+$resultado = $sql_objeto->consultar_usuarios_por_categoria(1) ;
+
+$errores = ''; 
+if($_POST){
+			$sql_objeto->conexion_mysqli();
+                     
+            
+			$email = $_POST['email'];
+			$contraseña = password_hash($_POST['contraseña'], PASSWORD_DEFAULT);
+            $contraseña2 = $_POST['contraseña2'];
+
+			
+			
+            if(password_verify($contraseña2,$contraseña) and !empty($contraseña)){
+              
+              if (!filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                $errores .= '<div class="alert alert-danger" role="alert">El email no es valido</div>';
+
+              }else{
+                $sql = "select * from usuario where email = ? ";
+                $result= $sql_objeto->consulta_individual_mysqli_email($sql);
+                $columnas = $result->num_rows;
+                echo $columnas;
+                if($columnas > 0) {
+                  $errores .= '<div class="alert alert-danger py-3" role="alert">El email ya esta registrado</div>.';
+                }else {
+                  $sql = "insert into usuario(nombre,apellido,email,contraseña,telefono,id_jerarquia) values (?,?,?,?,?,1)";
+                  $sql_objeto->insertar_usuario_mysqli($sql);
+				  header("location: admin.php?email=". $email);
+				  echo $sql;	
+                }
+
+
+              }                      
+            }else{
+                $errores .= '<div class="alert alert-danger py-3" role="alert">Las contraseñas no coinciden</div>';
+
+			}
+			
+}
 ?>
 		<!-- Content page -->
 		<div class="container-fluid">
@@ -11,6 +50,20 @@ $resultado = $sql_objeto->consultar_usuarios_por_categoria(2) ;
 			  <h1 class="text-titles"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Usuarios <small>Administradores</small></h1>
 			</div>
 			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
+            <?php
+             	echo $errores;
+            ?>
+
+			
+			<?php
+
+				
+					if(isset($_GET['email'])){
+						echo '<div class="alert alert-success" role="alert">Se registro correctamente '.$_GET['email'] .'</div>';
+					}
+				
+			?>
+
 		</div>
 		<div class="container-fluid">
 			<div class="row">
@@ -24,27 +77,37 @@ $resultado = $sql_objeto->consultar_usuarios_por_categoria(2) ;
 							<div class="container-fluid">
 								<div class="row">
 									<div class="col-xs-12 col-md-10 col-md-offset-1">
-									    <form action="">
+									    <form Method="POST">
 									    	<div class="form-group label-floating">
 											  <label class="control-label">Nombre</label>
-											  <input class="form-control" type="text">
+											  <input class="form-control" name= 'name' type="text">
 											</div>
 											<div class="form-group label-floating">
 											  <label class="control-label">Apellido</label>
-											  <input class="form-control" type="text">
+											  <input class="form-control"  name= 'apellido'  type="text">
 											</div>
 								
 											<div class="form-group label-floating">
 											  <label class="control-label">Email</label>
-											  <input class="form-control" type="text">
+											  <input class="form-control"  name= 'email'  type="text">
 											</div>
 											<div class="form-group label-floating">
 											  <label class="control-label">Telefono</label>
-											  <input class="form-control" type="text">
+											  <input class="form-control" name= 'phone'  type="text">
+											</div>
+
+											<div class="form-group label-floating">
+											  <label class="control-label">Contraseña</label>
+											  <input name="contraseña" type="password" class="form-control" required>
+											</div>
+
+											<div class="form-group label-floating">
+											  <label class="control-label">Repetir Contraseña</label>
+											  <input name="contraseña2" type="password" class="form-control" required>
 											</div>
 
 										    <p class="text-center">
-										    	<button href="#!" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Guardar</button>
+										    	<button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Guardar</button>
 										    </p>
 									    </form>
 									</div>
@@ -62,51 +125,21 @@ $resultado = $sql_objeto->consultar_usuarios_por_categoria(2) ;
 											
 											<th class="text-center">Email</th>
 											<th class="text-center">Telefono</th>
-											<th class="text-center">Update</th>
 											<th class="text-center">Delete</th>
 										</tr>
 									</thead>
 									<tbody>
+										<?php foreach($resultado as $admin):?>
 										<tr>
-											<td>1</td>
-											<td>Carlos</td>
-											<td>Alfaro</td>
+											<td><?php echo $admin['id_usuario'];?></td>
+											<td><?php echo $admin['nombre'];?></td>
+											<td><?php echo $admin['apellido'];?></td>
 											
-											<td>carlos@gmail.com</td>
-											<td>+50312345678</td>
-											<td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+											<td><?php echo $admin['email'];?></td>
+											<td><?php echo $admin['telefono'];?></td>
 											<td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
 										</tr>
-										<tr>
-											<td>2</td>
-											<td>Alicia</td>
-											<td>Melendez</td>
-											
-											<td>alicia@gmail.com</td>
-											<td>+50312345678</td>
-											<td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-											<td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>Sarai</td>
-											<td>Lopez</td>
-											
-											<td>sarai@gmail.com</td>
-											<td>+50312345678</td>
-											<td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-											<td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>Alba</td>
-											<td>Bonilla</td>
-											
-											<td>alba@gmail.com</td>
-											<td>+50312345678</td>
-											<td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-											<td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-										</tr>
+										<?php endforeach;?>
 									</tbody>
 								</table>
 							</div>

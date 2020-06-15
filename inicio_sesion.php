@@ -13,47 +13,67 @@ $sql_objeto = new sql();
 $usuario_objeto = new usuario();
 if(!empty($_POST)){
   $error = '';
-  $sql = "SELECT * FROM usuario WHERE email = ? AND contraseña = ? AND id_jerarquia = 2"; //usuario normal
+  $sql = "SELECT * FROM usuario WHERE email = ? AND id_jerarquia = 2"; //usuario normal
 
   $sql_objeto->conexion_mysqli();
-  $result= $sql_objeto->consulta_individual_mysqli($sql);
+  $result= $sql_objeto->consulta_individual_mysqli_email_otra($sql);
+  var_dump($result);
   $rows = $result->num_rows;
+  $var = True;
 
   if($rows > 0) {
-    
-    
+    $error = '';
     $row = $result->fetch_assoc();
-    $_SESSION['id_usuario'] = $row['id_usuario'];
-    $_SESSION['email'] = $row['email'];
-    $_SESSION['nombre'] = $row['nombre'];
-    $_SESSION['id_clasificacion'] = $row['id_jerarquia'];
-
-    $usuario_objeto->set_usuario($row['email'],$row['nombre'],$row['apellido'],$row['id_clasificacion'],$row['id_usuario']);
-    $_SESSION['usuario'] = $usuario_objeto;
+    if( !password_verify($_POST['password'],$row['contraseña'])   ){
+      $error .= '<div class="alert alert-danger" role="alert">La contraseña no coinciden</div>';
+      $var = False;
+    }else{
+      $_SESSION['id_usuario'] = $row['id_usuario'];
+      $_SESSION['email'] = $row['email'];
+      $_SESSION['nombre'] = $row['nombre'];
+      $_SESSION['id_clasificacion'] = $row['id_jerarquia'];
+  
+      $usuario_objeto->set_usuario($row['email'],$row['nombre'],$row['apellido'],$row['id_clasificacion'],$row['id_usuario']);
+      $_SESSION['usuario'] = $usuario_objeto;
+      
+      header("location: index.php"); 
+      exit();
+    }
     
-    header("location: index.php"); 
-    exit();
+    
     
   }
 
-    $sql2 = "SELECT * FROM usuario WHERE email = ? AND contraseña = ? AND id_jerarquia = 1"; //usuario administrador
-    $result2=  $sql_objeto->consulta_individual_mysqli($sql2);
+    $sql2 = "SELECT * FROM usuario WHERE email = ? AND id_jerarquia = 1"; //usuario administrador
+    $result2=  $sql_objeto->consulta_individual_mysqli_email_otra($sql2);
     $rows = $result2->num_rows;
+    
     
 
 
   if($rows > 0) {
+      $error = '';
       $row = $result2->fetch_assoc();
-      $_SESSION['id_usuario'] = $row['id_usuario'];
-      $_SESSION['nombre'] = $row['nombre'];
-      $_SESSION['id_clasificacion'] = $row['id_jerarquia'];
-      $usuario_objeto->set_usuario($row['email'],$row['nombre'],$row['apellido'],$row['id_clasificacion'],$row['id_usuario']);
-      $_SESSION['usuario'] = $usuario_objeto;
-      header("location: home.php");
-      exit();
+      if( !password_verify($_POST['password'],$row['contraseña'])   ){
+        $error .= '<div class="alert alert-danger" role="alert">La contraseña no coinciden</div>';
+        
+      }else{
+        $_SESSION['id_usuario'] = $row['id_usuario'];
+        $_SESSION['nombre'] = $row['nombre'];
+        $_SESSION['id_clasificacion'] = $row['id_jerarquia'];
+        $usuario_objeto->set_usuario($row['email'],$row['nombre'],$row['apellido'],$row['id_clasificacion'],$row['id_usuario']);
+        $_SESSION['usuario'] = $usuario_objeto;
+        header("location: home.php");
+        exit();
+      }
+      
+      
     }else {
-    
-    $error .= '<div class="alert alert-danger" role="alert">El email o contraseña son incorrectos.</div>';
+    if ($var){
+      $error  = '<div class="alert alert-danger" role="alert">El email es incorrecto</div>';
+
+    }
+      
     
   } 
 

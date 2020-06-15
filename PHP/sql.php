@@ -7,7 +7,7 @@ class sql{
 
     protected $pdo;
     protected $mysqli;
-    protected $contraseña = '3306';
+    protected $contraseña = '3307';
 
     function consultar_usuarios_por_categoria($categoria){
         $sql_categorias = 'SELECT * from usuario where id_jerarquia = ?';
@@ -162,12 +162,25 @@ class sql{
             echo 'Conexion Fallida : ', mysqli_connect_error();
             exit();
         }
+        echo 'jalo';
         
     }
 
+    function consulta_individual_mysqli_email_otra($sql){
+        $stmt2 = $this->$mysqli->prepare($sql);
+        
+        $stmt2->bind_param("s", $_POST['email']);
+        $stmt2->execute();
+        $result = $stmt2->get_result();
+        return $result;
+
+    }
+
+
     function consulta_individual_mysqli($sql){
         $stmt2 = $this->$mysqli->prepare($sql);
-        $stmt2->bind_param("ss", $_POST['email'], hash('ripemd160', $_POST['password']));
+        
+        $stmt2->bind_param("ss", $_POST['email'], password_hash($_POST['password'], PASSWORD_DEFAULT));
         $stmt2->execute();
         $result = $stmt2->get_result();
         return $result;
@@ -187,7 +200,7 @@ class sql{
 
     function insertar_usuario_mysqli($sql){
         $stmt2 = $this->$mysqli->prepare($sql);
-        $stmt2->bind_param("sssss", $_POST['name'], $_POST['apellido'], $_POST['email'], hash('ripemd160', $_POST['contraseña']), $_POST['phone']);
+        $stmt2->bind_param("sssss", $_POST['name'], $_POST['apellido'], $_POST['email'], password_hash($_POST['contraseña'], PASSWORD_DEFAULT), $_POST['phone']);
         $stmt2->execute();
         unset($_POST);
         return;

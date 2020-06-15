@@ -19,7 +19,7 @@
   <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet"> 
   <!-- Custom styles for this template -->
   <link href="css/scrolling-nav.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="css/Letras_nuevas.css">
 
   <?php if(isset($_SESSION["id_usuario"])): ?>
   <link rel="stylesheet" href="css/estilos.css">
@@ -56,7 +56,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav"> 
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger " href="index.php" style="font-family:Ar Destine;"> <span class="mb-0 h2 ">CE.SISA</span></a>
+      <a class="navbar-brand js-scroll-trigger letra_logo" href="index.php"> <span class="mb-0 h2 letra_logo">CE.SISA</span></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

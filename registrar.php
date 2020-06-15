@@ -14,13 +14,11 @@
             $errores = '';          
             $correctamente = '';
             $email = $_POST['email'];
-            $contraseña = mysqli_real_escape_string($mysqli,$_POST['contraseña']);
-            $contraseña2 = mysqli_real_escape_string($mysqli,$_POST['contraseña2']);
-            $contraseña = hash('ripemd160', $contraseña);
-            $contraseña2 = hash('ripemd160', $contraseña2);
+            $contraseña = password_hash($_POST['contraseña'], PASSWORD_DEFAULT);
+            $contraseña2 = $_POST['contraseña2'];
 
 
-            if($contraseña == $contraseña2 and !empty($contraseña)){
+            if(password_verify($contraseña2,$contraseña) and !empty($contraseña)){
               
               if (!filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 $errores .= '<div class="alert alert-danger" role="alert">El email no es valido</div>';

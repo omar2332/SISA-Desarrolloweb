@@ -39,7 +39,7 @@ if(!isset($_SESSION["nombre"])){
 					<img src="./assets/img/avatar-anonimo.png">
 					<figcaption class="text-center text-titles mt-3">  <p><?php   
 						if(isset($_SESSION["usuario"])){
-							echo $_SESSION["usuario"]->get_nombre();
+							echo $_SESSION['nombre'];
 						}
 						?></p>
 				</figcaption>

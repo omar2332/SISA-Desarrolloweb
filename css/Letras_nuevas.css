@@ -1,0 +1,9 @@
+
+@font-face{
+	font-family: Arct;
+	src: url( ../fonts/FontsFree-Net-ARDESTINE.ttf );
+}
+
+.letra_logo{
+	font-family: Arct;
+}

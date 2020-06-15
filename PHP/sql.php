@@ -117,6 +117,13 @@ class sql{
         return $gsent->rowCount();
     }
 
+    function contar_productos(){
+        $sql = 'SELECT * from producto,clasificacion_productos where producto.id_clasificacion = clasificacion_productos.id_clasificacion';
+        $gsent = $this->$pdo->prepare($sql);
+        $gsent->execute();
+        return $gsent->rowCount();
+    }
+
     function conexion_pdo(){
         $usuario = 'root';
         $contraseña = 'root';    
@@ -217,6 +224,16 @@ class sql{
         return $resultado;
     }
 
+    function consultar_productos_paginacion($inicio, $cantidad){
+        $sql_categorias = 'SELECT * from producto,clasificacion_productos where producto.id_clasificacion = clasificacion_productos.id_clasificacion LIMIT :inicio, :cantidad';
+        $gsent= $this->$pdo-> prepare($sql_categorias);
+        $gsent->bindParam(':inicio', $inicio, PDO::PARAM_INT);
+        $gsent->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
+		$gsent->execute();
+        $resultado = $gsent->fetchAll();
+        return $resultado;
+    }
+    
     function eliminar_usuario_por_id($id){
         $sql_eliminar = 'delete from usuario where id_usuario = ?';
         $sentencia_eliminar = $this->$pdo-> prepare($sql_eliminar);

@@ -146,14 +146,16 @@ if($_POST){
 
 										
 										
-										//$resultado =$sql_objeto ->consulta_producto_por_categoria();
+										$resultado_consulta =$sql_objeto ->consulta_producto_por_categoria();
 										
 										//variables para paginacion
 										$numero_productos_paginacion = 2;
 										$num_productos = $sql_objeto ->contar_productos();
 										$paginas = $num_productos/$numero_productos_paginacion;
 										$paginas = ceil($paginas);
+										if($paginas > 0){
 
+										
 										if(!$_GET['pagina']){
 											header('Location:admin_productos.php?pagina=1');
 										}
@@ -162,10 +164,11 @@ if($_POST){
 										}
 
 										$iniciar = ($_GET['pagina']-1)*$numero_productos_paginacion;
-										$resultado_paginacion = $sql_objeto-> consultar_productos_paginacion($iniciar, $numero_productos_paginacion);
+										$resultado_consulta = $sql_objeto-> consultar_productos_paginacion($iniciar, $numero_productos_paginacion);
+										}
 										?>
 										        
-										<?php foreach($resultado_paginacion as $categoria): ?>        	  
+										<?php foreach( $resultado_consulta as $categoria): ?>        	  
 										<tr>
 											<td><?php echo $categoria['id_producto']?></td>
 											<td><?php echo $categoria['nombre']?></td>

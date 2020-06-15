@@ -103,7 +103,7 @@ if(!isset($_SESSION["nombre"])){
 					</a>
 					<ul class="list-unstyled full-box">
 						<li>
-							<a href="registration.html"><i class="zmdi zmdi-money-box zmdi-hc-fw"></i> Todas</a>
+							<a href="lista_cotizaciones.php"><i class="zmdi zmdi-money-box zmdi-hc-fw"></i> Todas</a>
 						</li>
 						<!-- <li>
 							<a href="payments.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i> Payments</a>

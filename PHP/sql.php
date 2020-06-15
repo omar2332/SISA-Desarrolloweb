@@ -9,6 +9,14 @@ class sql{
     protected $mysqli;
     protected $contraseña = '3307';
 
+    function insertar_cotizacion_por_usuario($id_usuario,$texto,$asunto){
+        $sql = 'INSERT INTO cotizacion (id_cotizacion, id_usuario, texto, asunto, estado) VALUES (NULL, ?, ?, ?, 1)';
+        $sentencia = $this->$pdo->prepare($sql);
+        //  var_dump($sentencia);
+        $sentencia->execute(array($id_usuario,$texto,$asunto));
+    
+    }
+
     function consultar_usuarios_por_categoria($categoria){
         $sql_categorias = 'SELECT * from usuario where id_jerarquia = ?';
 		$gsent= $this->$pdo-> prepare($sql_categorias);
@@ -169,7 +177,7 @@ class sql{
             echo 'Conexion Fallida : ', mysqli_connect_error();
             exit();
         }
-        echo 'jalo';
+        //echo 'jalo';
         
     }
 
@@ -239,6 +247,14 @@ class sql{
         $sentencia_eliminar = $this->$pdo-> prepare($sql_eliminar);
         $sentencia_eliminar ->execute(array($id));
 
+    }
+
+    function mostrar_cotizaciones(){
+        $sql_categorias = 'SELECT * from cotizacion,usuario where cotizacion.id_usuario = usuario.id_usuario';
+		$gsent= $this->$pdo-> prepare($sql_categorias);
+		$gsent->execute();
+        $resultado = $gsent->fetchAll();
+        return $resultado;
     }
 
     function cerrar_mysqli(){

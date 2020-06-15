@@ -1,23 +1,55 @@
 <?php include('cabecera_usuario.php');
 
-  
+$sql_objeto =  new sql();
+$sql_objeto->conexion_pdo();
+$error = '';
+$correcto = '';
+if($_POST){
+   $id_usuario = $_SESSION['id_usuario'];
+   $clasificacion = $_SESSION['id_clasificacion'];
+   $asunto = $_POST['asunto'];
+   $texto = $_POST['mensaje'];
+
+   if(empty($asunto) or empty($texto)){
+     $error = '<div class="alert alert-danger" role="alert">Llene todos los campos por favor</div>';
+   }else{
+     if($clasificacion != 1){
+      $sql_objeto->insertar_cotizacion_por_usuario($id_usuario,$texto,$asunto);
+      $correcto='<div class="alert alert-success" role="alert">La cotizacion se ha enviado correctamente</div>';
+     }else{
+      $error = '<div class="alert alert-danger" role="alert">Usuario Adminitrador no tiene permitida esta accion</div>';
+     }
+      
+   }
+
+
+}
 
 ?>
+
+
 
   
 
 
   <section id="cotizacion" class ="bg-light">
     <h1 class="col-md-7 ml-md-auto">Cotización</h1>
+
+    <div class = ' container py-3 '>
+    <?php echo $error;?>
+    <?php echo $correcto;?>
+    </div>
+    
     <div class="container">
+      
       <form method = 'POST'>
       <div class="form-group">
         <label for="exampleFormControlInput1">Asunto</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1">
+        <input  name= 'asunto' type='text' class="form-control" id="exampleFormControlInput1">
       </div>
       <div class="form-group">
         <label for="exampleFormControlTextarea1">Mensaje</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="8"></textarea>
+        <textarea name= 'mensaje' class="form-control" id="exampleFormControlTextarea1" rows="8"></textarea>
       </div>
     
 
@@ -98,7 +130,7 @@
 		Chat de Facebook
 	</div>
 	<div class="chat-content">
-  <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FConfeccionessSISA%2F&tabs=messages&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&appId" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+  <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FConfecciones-Sisa-1389825841100484&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
 	</div>
   </section>
 

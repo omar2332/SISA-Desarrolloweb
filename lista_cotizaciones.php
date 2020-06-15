@@ -3,6 +3,7 @@ include_once './PHP/sql.php';
 include('cabecera_home.php');
 $sql_objeto = new sql();
 $sql_objeto->conexion_pdo();
+$resultado = $sql_objeto->mostrar_cotizaciones();
 //$resultado = $sql_objeto->consultar_usuarios_por_categoria(2) ;
 
 //variables para paginacion
@@ -14,39 +15,12 @@ $paginas = ceil($paginas);
 ?>
 
 		<!-- Content page -->
-		<?php 
-			if(!$_GET['pagina']){
-				header('Location:admin_clientes.php?pagina=1');
-			}
-			if($_GET['pagina'] > $paginas || $_GET['pagina'] <1){
-				header('Location:admin_clientes.php?pagina=1');
-			}
-
-			$iniciar = ($_GET['pagina']-1)*$numero_clientes_paginacion;
-			$resultado_paginacion = $sql_objeto-> consultar_clientes_paginacion($iniciar, $numero_clientes_paginacion);
-
-
-		?>
+		
 		<div class="container-fluid">
 			<div class="page-header">
 			  <h1 class="text-titles"><i class="zmdi zmdi-face"></i> Clientes</small></h1>
 			</div>
 		</div>
-
-		<?php if(isset($_GET['correctamente'])): ?>
-
-		<?php if($_GET['correctamente'] == 1): ?>
-
-			<div class="alert alert-success" role="alert">
-			 Se ha Eliminado correctamente al usuario
-			</div>
-		<?php else: ?>
-			<div class="alert alert-danger" role="alert">
-			Ha ocurrido un error
-			</div>
-		<? endif;?>
-		<? endif ?>
-
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12">
@@ -62,24 +36,22 @@ $paginas = ceil($paginas);
 									<thead>
 										<tr>
 											<th class="text-center">#</th>
+											<th class="text-center">Asunto</th>
 											<th class="text-center">Nombre</th>
-											<th class="text-center">Apellido</th>
-											<th class="text-center">Telefono</th>
-											<th class="text-center">E-mail</th>
+                                            <th class="text-center">E-mail</th>
+                                            <th class="text-center">Ver</th>
 											<th class="text-center">Eliminar</th>
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach($resultado_paginacion as $usuario): ?>    
+										<?php foreach($resultado as $coti): ?>    
 										<tr>
-											<td><?php echo $usuario['id_usuario']; ?></td>
-											<td><?php echo $usuario['nombre'] ;?></td>
-											<td><?php echo $usuario['apellido']; ?></td>
-											<td><?php echo $usuario['telefono'] ;?></td>
-											<td><?php echo $usuario['email'] ;?></td>
-											
-
-											<td><a href="eliminar_usuario.php?id=<?php echo $usuario['id_usuario']; ?>" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+											<td><?php echo $coti['id_cotizacion']; ?></td>
+											<td><?php echo $coti['asunto'] ;?></td>
+											<td><?php echo $coti['nombre']; ?></td>
+											<td><?php echo $coti['email'] ;?></td>
+											<td><a href="mostrar_cotizacion.php?id=<?php echo $coti['id_cotizacion']; ?>" class="btn btn-secondary btn-raised btn-xs"><i class="zmdi zmdi zmdi-eye"></i></a></td>
+											<td><a href="eliminar_cotizacion.php?id=<?php echo $coti['id_cotizacion']; ?>" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
 										</tr>
 										<?php endforeach; ?>
 									

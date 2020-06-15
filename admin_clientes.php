@@ -3,11 +3,30 @@ include_once './PHP/sql.php';
 include('cabecera_home.php');
 $sql_objeto = new sql();
 $sql_objeto->conexion_pdo();
-$resultado = $sql_objeto->consultar_usuarios_por_categoria(2) ;
+//$resultado = $sql_objeto->consultar_usuarios_por_categoria(2) ;
+
+//variables para paginacion
+$numero_clientes_paginacion = 2;
+$num_clientes = $sql_objeto->contar_clientes();
+$paginas = $num_clientes/$numero_clientes_paginacion;
+$paginas = ceil($paginas);
 
 ?>
 
 		<!-- Content page -->
+		<?php 
+			if(!$_GET['pagina']){
+				header('Location:admin_clientes.php?pagina=1');
+			}
+			if($_GET['pagina'] > $paginas || $_GET['pagina'] <1){
+				header('Location:admin_clientes.php?pagina=1');
+			}
+
+			$iniciar = ($_GET['pagina']-1)*$numero_clientes_paginacion;
+			$resultado_paginacion = $sql_objeto-> consultar_clientes_paginacion($iniciar, $numero_clientes_paginacion);
+
+
+		?>
 		<div class="container-fluid">
 			<div class="page-header">
 			  <h1 class="text-titles"><i class="zmdi zmdi-face"></i> Clientes</small></h1>
@@ -51,7 +70,7 @@ $resultado = $sql_objeto->consultar_usuarios_por_categoria(2) ;
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach($resultado as $usuario): ?>    
+										<?php foreach($resultado_paginacion as $usuario): ?>    
 										<tr>
 											<td><?php echo $usuario['id_usuario']; ?></td>
 											<td><?php echo $usuario['nombre'] ;?></td>
@@ -67,13 +86,25 @@ $resultado = $sql_objeto->consultar_usuarios_por_categoria(2) ;
 									</tbody>
 								</table>
 								<ul class="pagination pagination-sm">
-								  	<li class="disabled"><a href="#!">«</a></li>
-								  	<li class="active"><a href="#!">1</a></li>
-								  	<li><a href="#!">2</a></li>
-								  	<li><a href="#!">3</a></li>
-								  	<li><a href="#!">4</a></li>
-								  	<li><a href="#!">5</a></li>
-								  	<li><a href="#!">»</a></li>
+								  	<li class="page-item <?php echo $_GET['pagina']<=1 ? 'disabled' : '' ?>">
+									  <a class="page-link"href="admin_clientes.php?pagina=<?php echo $_GET['pagina']-1 ?>"
+									  >«
+									  </a>
+									</li>
+
+									<?php for($i=0; $i<$paginas; $i++): ?>
+								  	<li class="page-item <?php echo $_GET['pagina'] == $i+1 ? 'active' : '' ?>">
+									  <a class="page-link" href="admin_clientes.php?pagina=<?php echo $i+1 ?>">
+										  <?php echo $i+1; ?>
+									  </a>
+									</li>
+									<?php endfor ?>
+								  	
+								  	<li class="page-item <?php echo $_GET['pagina']>=$paginas ? 'disabled' : '' ?>">
+									  <a class="page-link" href="admin_clientes.php?pagina=<?php echo $_GET['pagina']+1 ?>">
+									  »
+									  </a>
+									</li>
 								</ul>
 							</div>
 					  	</div>

@@ -7,7 +7,7 @@ class sql{
 
     protected $pdo;
     protected $mysqli;
-    protected $contraseña = '3307';
+    protected $contraseña = '3306';
 
     function consultar_usuarios_por_categoria($categoria){
         $sql_categorias = 'SELECT * from usuario where id_jerarquia = ?';
@@ -109,6 +109,14 @@ class sql{
         print_r($num);
     }
 
+    function contar_clientes(){
+        $sql = "SELECT * FROM usuario WHERE id_jerarquia = 2";
+        $gsent = $this->$pdo->prepare($sql);
+        $gsent->execute();
+        $result = $gsent->fetch(PDO::FETCH_ASSOC);  
+        return $gsent->rowCount();
+    }
+
     function conexion_pdo(){
         $usuario = 'root';
         $contraseña = 'root';    
@@ -184,6 +192,16 @@ class sql{
         unset($_POST);
         return;
 
+    }
+
+    function consultar_clientes_paginacion($inicio, $cantidad){
+        $sql_categorias = 'SELECT * FROM usuario WHERE id_jerarquia = 2 LIMIT :inicio, :cantidad';
+        $gsent= $this->$pdo-> prepare($sql_categorias);
+        $gsent->bindParam(':inicio', $inicio, PDO::PARAM_INT);
+        $gsent->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
+		$gsent->execute();
+        $resultado = $gsent->fetchAll();
+        return $resultado;
     }
 
     function eliminar_usuario_por_id($id){

@@ -146,10 +146,26 @@ if($_POST){
 
 										
 										
-										$resultado =$sql_objeto ->consulta_producto_por_categoria();;
+										//$resultado =$sql_objeto ->consulta_producto_por_categoria();
+										
+										//variables para paginacion
+										$numero_productos_paginacion = 2;
+										$num_productos = $sql_objeto ->contar_productos();
+										$paginas = $num_productos/$numero_productos_paginacion;
+										$paginas = ceil($paginas);
+
+										if(!$_GET['pagina']){
+											header('Location:admin_productos.php?pagina=1');
+										}
+										if($_GET['pagina'] > $paginas || $_GET['pagina'] <1){
+											header('Location:admin_productos.php?pagina=1');
+										}
+
+										$iniciar = ($_GET['pagina']-1)*$numero_productos_paginacion;
+										$resultado_paginacion = $sql_objeto-> consultar_productos_paginacion($iniciar, $numero_productos_paginacion);
 										?>
 										        
-										<?php foreach($resultado as $categoria): ?>        	  
+										<?php foreach($resultado_paginacion as $categoria): ?>        	  
 										<tr>
 											<td><?php echo $categoria['id_producto']?></td>
 											<td><?php echo $categoria['nombre']?></td>
@@ -165,13 +181,25 @@ if($_POST){
 									</tbody>
 								</table>
 								<ul class="pagination pagination-sm">
-								  	<li class="disabled"><a href="#!">«</a></li>
-								  	<li class="active"><a href="#!">1</a></li>
-								  	<li><a href="#!">2</a></li>
-								  	<li><a href="#!">3</a></li>
-								  	<li><a href="#!">4</a></li>
-								  	<li><a href="#!">5</a></li>
-								  	<li><a href="#!">»</a></li>
+								  	<li class="page-item <?php echo $_GET['pagina']<=1 ? 'disabled' : '' ?>">
+									  <a class="page-link"href="admin_productos.php?pagina=<?php echo $_GET['pagina']-1 ?>"
+									  >«
+									  </a>
+									</li>
+
+									<?php for($i=0; $i<$paginas; $i++): ?>
+								  	<li class="page-item <?php echo $_GET['pagina'] == $i+1 ? 'active' : '' ?>">
+									  <a class="page-link" href="admin_productos.php?pagina=<?php echo $i+1 ?>">
+										  <?php echo $i+1; ?>
+									  </a>
+									</li>
+									<?php endfor ?>
+								  	
+								  	<li class="page-item <?php echo $_GET['pagina']>=$paginas ? 'disabled' : '' ?>">
+									  <a class="page-link" href="admin_productos.php?pagina=<?php echo $_GET['pagina']+1 ?>">
+									  »
+									  </a>
+									</li>
 								</ul>
 							</div>
 					  	</div>

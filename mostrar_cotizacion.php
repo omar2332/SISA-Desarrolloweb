@@ -35,7 +35,7 @@ $resultado = $sql_objeto->mostrar_cotizacion_por_id($_GET['id']);
 
 			<div class="bg-info mensaje">
 				
-				<p><?php echo $cotizacion['texto']  ;?></p>
+				<p style="padding: 20px 20px 20px 20px;"><?php echo $cotizacion['texto']  ;?></p>
 			</div>
 			
         </div>

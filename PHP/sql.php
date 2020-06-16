@@ -7,7 +7,7 @@ class sql{
 
     protected $pdo;
     protected $mysqli;
-    protected $contraseña = '3307';
+    protected $contraseña = '3306';
 
     function insertar_cotizacion_por_usuario($id_usuario,$texto,$asunto){
         $sql = 'INSERT INTO cotizacion (id_cotizacion, id_usuario, texto, asunto, estado) VALUES (NULL, ?, ?, ?, 1)';
@@ -132,6 +132,14 @@ class sql{
         return $gsent->rowCount();
     }
 
+    function contar_cotizaciones(){
+        $sql = 'SELECT * from cotizacion,usuario where cotizacion.id_usuario = usuario.id_usuario';
+        $gsent = $this->$pdo->prepare($sql);
+        $gsent->execute();
+        $result = $gsent->fetch(PDO::FETCH_ASSOC);  
+        return $gsent->rowCount();
+    }
+
     function conexion_pdo(){
         $usuario = 'root';
         $contraseña = 'root';    
@@ -234,6 +242,16 @@ class sql{
 
     function consultar_productos_paginacion($inicio, $cantidad){
         $sql_categorias = 'SELECT * from producto,clasificacion_productos where producto.id_clasificacion = clasificacion_productos.id_clasificacion LIMIT :inicio, :cantidad';
+        $gsent= $this->$pdo-> prepare($sql_categorias);
+        $gsent->bindParam(':inicio', $inicio, PDO::PARAM_INT);
+        $gsent->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
+		$gsent->execute();
+        $resultado = $gsent->fetchAll();
+        return $resultado;
+    }
+    
+    function consultar_cotizacion_paginacion($inicio, $cantidad){
+        $sql_categorias = 'SELECT * from cotizacion,usuario where cotizacion.id_usuario = usuario.id_usuario LIMIT :inicio, :cantidad';
         $gsent= $this->$pdo-> prepare($sql_categorias);
         $gsent->bindParam(':inicio', $inicio, PDO::PARAM_INT);
         $gsent->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);

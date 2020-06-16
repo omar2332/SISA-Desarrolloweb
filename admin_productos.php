@@ -149,7 +149,7 @@ if($_POST){
 										$resultado_consulta =$sql_objeto ->consulta_producto_por_categoria();
 										
 										//variables para paginacion
-										$numero_productos_paginacion = 2;
+										$numero_productos_paginacion = 5;
 										$num_productos = $sql_objeto ->contar_productos();
 										$paginas = $num_productos/$numero_productos_paginacion;
 										$paginas = ceil($paginas);

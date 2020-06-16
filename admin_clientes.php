@@ -6,7 +6,7 @@ $sql_objeto->conexion_pdo();
 $resultado_consulta = $sql_objeto->consultar_usuarios_por_categoria(2) ;
 
 //variables para paginacion
-$numero_clientes_paginacion = 2;
+$numero_clientes_paginacion = 5;
 $num_clientes = $sql_objeto->contar_clientes();
 $paginas = $num_clientes/$numero_clientes_paginacion;
 $paginas = ceil($paginas);

@@ -3,22 +3,36 @@ include_once './PHP/sql.php';
 include('cabecera_home.php');
 $sql_objeto = new sql();
 $sql_objeto->conexion_pdo();
-$resultado = $sql_objeto->mostrar_cotizaciones();
-//$resultado = $sql_objeto->consultar_usuarios_por_categoria(2) ;
+$resultado_consulta = $sql_objeto->mostrar_cotizaciones();
 
 //variables para paginacion
-$numero_clientes_paginacion = 2;
-$num_clientes = $sql_objeto->contar_clientes();
-$paginas = $num_clientes/$numero_clientes_paginacion;
+$numero_cotizaciones_paginacion = 5;
+$num_cotizacion = $sql_objeto->contar_cotizaciones();
+$paginas = $num_cotizacion/$numero_cotizaciones_paginacion;
 $paginas = ceil($paginas);
 
 ?>
 
 		<!-- Content page -->
+		<?php
+		if($paginas >0){ 
+			if(!$_GET['pagina']){
+				header('Location:lista_cotizaciones.php?pagina=1');
+			}
+			if($_GET['pagina'] > $paginas || $_GET['pagina'] <1){
+				header('Location:lista_cotizaciones.php?pagina=1');
+			}
+
+			$iniciar = ($_GET['pagina']-1)*$numero_cotizaciones_paginacion;
+			$resultado_consulta = $sql_objeto-> consultar_cotizacion_paginacion($iniciar, $numero_cotizaciones_paginacion);
+		}
+
+
+		?>
 		
 		<div class="container-fluid">
 			<div class="page-header">
-			  <h1 class="text-titles"><i class="zmdi zmdi-face"></i> Clientes</small></h1>
+			  <h1 class="text-titles"><i class="zmdi zmdi-card zmdi-hc-fw"></i> Cotizaciones</small></h1>
 			</div>
 		</div>
 		<div class="container-fluid">
@@ -44,7 +58,7 @@ $paginas = ceil($paginas);
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach($resultado as $coti): ?>    
+										<?php foreach($resultado_consulta as $coti): ?>    
 										<tr>
 											<td><?php echo $coti['id_cotizacion']; ?></td>
 											<td><?php echo $coti['asunto'] ;?></td>
@@ -59,21 +73,21 @@ $paginas = ceil($paginas);
 								</table>
 								<ul class="pagination pagination-sm">
 								  	<li class="page-item <?php echo $_GET['pagina']<=1 ? 'disabled' : '' ?>">
-									  <a class="page-link"href="admin_clientes.php?pagina=<?php echo $_GET['pagina']-1 ?>"
+									  <a class="page-link"href="lista_cotizaciones.php?pagina=<?php echo $_GET['pagina']-1 ?>"
 									  >«
 									  </a>
 									</li>
 
 									<?php for($i=0; $i<$paginas; $i++): ?>
 								  	<li class="page-item <?php echo $_GET['pagina'] == $i+1 ? 'active' : '' ?>">
-									  <a class="page-link" href="admin_clientes.php?pagina=<?php echo $i+1 ?>">
+									  <a class="page-link" href="lista_cotizaciones.php?pagina=<?php echo $i+1 ?>">
 										  <?php echo $i+1; ?>
 									  </a>
 									</li>
 									<?php endfor ?>
 								  	
 								  	<li class="page-item <?php echo $_GET['pagina']>=$paginas ? 'disabled' : '' ?>">
-									  <a class="page-link" href="admin_clientes.php?pagina=<?php echo $_GET['pagina']+1 ?>">
+									  <a class="page-link" href="lista_cotizaciones.php?pagina=<?php echo $_GET['pagina']+1 ?>">
 									  »
 									  </a>
 									</li>

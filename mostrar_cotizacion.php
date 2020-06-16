@@ -1,10 +1,10 @@
 <?php 
 
-/*
+
 if(!isset($_GET['id'])){
     header('location: home.php');
 }
-*/
+
 include('cabecera_home.php');
 include_once './PHP/sql.php';
 $sql_objeto = new sql();
@@ -31,11 +31,11 @@ $resultado = $sql_objeto->mostrar_cotizacion_por_id($_GET['id']);
 			<h4>Email: <?php echo $cotizacion['email']  ;?></h4>
 			<h4>Telefono: <?php echo $cotizacion['telefono']  ;?></h4> <br>
 			
-			<h4 class="text-titles text-primary">Mensaje:</h4><br><br>
+			<h4 class="text-titles text-primary">Mensaje:</h4>
 
-			<div class="bg-info mensaje">
+			<div class="bg-info">
 				
-				<p style="padding: 20px 20px 20px 20px;"><?php echo $cotizacion['texto']  ;?></p>
+				<p style="padding: 20px 20px 20px 20px; margin-top:40px"><?php echo $cotizacion['texto']  ;?></p>
 			</div>
 			
         </div>

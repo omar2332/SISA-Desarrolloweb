@@ -7,7 +7,7 @@ class sql{
 
     protected $pdo;
     protected $mysqli;
-    protected $contraseña = '3306';
+    protected $contraseña = '3307';
 
     function insertar_cotizacion_por_usuario($id_usuario,$texto,$asunto){
         $sql = 'INSERT INTO cotizacion (id_cotizacion, id_usuario, texto, asunto, estado) VALUES (NULL, ?, ?, ?, 1)';
@@ -288,6 +288,12 @@ class sql{
     }
     function cerrar_pdo(){
         $pdo=null;
+    }
+
+    function eliminar_cotizacion_por_id($id){
+        $sql_eliminar = 'delete from cotizacion where id_cotizacion = ?';
+        $sentencia_eliminar = $this->$pdo-> prepare($sql_eliminar);
+        $sentencia_eliminar ->execute(array($id));
     }
 
 

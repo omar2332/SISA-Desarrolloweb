@@ -27,6 +27,7 @@ $paginas = ceil($paginas);
 			$resultado_consulta = $sql_objeto-> consultar_cotizacion_paginacion($iniciar, $numero_cotizaciones_paginacion);
 		}
 
+		
 
 		?>
 		

@@ -257,6 +257,14 @@ class sql{
         return $resultado;
     }
 
+    function mostrar_cotizacion_por_id($id){
+        $sql_categorias = 'SELECT * from cotizacion,usuario where cotizacion.id_cotizacion = ?  and cotizacion.id_usuario = usuario.id_usuario';
+		$gsent= $this->$pdo-> prepare($sql_categorias);
+		$gsent->execute(array($id));
+        $resultado = $gsent->fetchAll();
+        return $resultado;
+    }
+
     function cerrar_mysqli(){
         $this->$mysqli = null;
     }

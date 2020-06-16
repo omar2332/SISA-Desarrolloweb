@@ -1,12 +1,16 @@
 <?php 
 
-if(!isset($_GET['id_cotizacion'])){
+/*
+if(!isset($_GET['id'])){
     header('location: home.php');
 }
+*/
 include('cabecera_home.php');
 include_once './PHP/sql.php';
 $sql_objeto = new sql();
-$sql_objeto->conexion_mysqli();
+$sql_objeto->conexion_pdo();
+
+$resultado = $sql_objeto->mostrar_cotizacion_por_id($_GET['id']);
 
 
 ?>
@@ -14,14 +18,37 @@ $sql_objeto->conexion_mysqli();
 	<!-- Content page -->
 	<div class="container-fluid">
 		<div class="container-fluid">
-			<div class="page-header">
-			  <h2 class="text-titles">Cotizacion #</h2>
+			<div class="page-header text-center">
+			  <h2 class="text-titles">Cotizacion # <?php echo $_GET['id']; ?></h2>
 			</div>
 		</div>
 		
+		<?php foreach($resultado as $cotizacion): ?>
+        <div class="container-fluid">
+			<h3 class="text-titles">Asunto: <?php echo $cotizacion['asunto']  ;?></h3><br>
+
+            <h4>Cliente: <?php echo $cotizacion['nombre'].' '.$cotizacion['apellido']  ;?></h4>
+			<h4>Email: <?php echo $cotizacion['email']  ;?></h4>
+			<h4>Telefono: <?php echo $cotizacion['telefono']  ;?></h4> <br>
 			
+			<h4 class="text-titles text-primary">Mensaje:</h4><br><br>
+
+			<div class="bg-info mensaje">
+				
+				<p><?php echo $cotizacion['texto']  ;?></p>
+			</div>
+			
+        </div>
+        <?php endforeach; ?>
+		
+		<br><br>
+		<div class='text-center'>
+			<a href='lista_cotizaciones.php' class="text btn btn-success">Regresar</a>
 		</div>
-	</div>	
+		
+	</div>
+
+		
 	</section>
 
 	<!-- Notifications area -->
